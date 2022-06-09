@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/* 화면 전체 렙 */
+.wrapper{
+	width: 1900px;	
+}
+	
+#container {width:700px; margin:60px auto;}
+a {text-decoration : none; color:black}
+.s_title {font-family: 'Nanum Gothic', sans-serif; font-size:2em; text-align: center; margin-bottom: 30px}
+table{width:100%; border-top:2px solid black; border-bottom: 2px solid black; }
+th, td{ border-bottom: 1px solid lightgray;}
+td{width:550px}
+tr {height:50px;}
+input[type=text], input[type=password]{background:#eee; border:none; height:25px; width:200px}
+input[type=text]:focus, input[type=password]:focus {background:white;}
+#addrNum{width: 100px}
+#btn_address, #btn_chk_id{ height:25px; width:80px; background: #e9967a; color:white; font-weight:bold; 
+			border:none; border-radius: 5px; cursor:pointer;}
+.addr_row{height:100px}
+.addr_row #addr2 { margin-top: 10px}
+.btns{text-align:center; margin:30px 0 0 10px;}
+.btns input[type=button]{width:120px; height:40px}
