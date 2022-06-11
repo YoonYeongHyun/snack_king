@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	<mapper namespace="com.snackking.mapper.ManagerMapper">
+  		<select id="managerLogin" parameterType="com.snackking.model.ManagerDTO" resultType="int">
+  			select count(*) from manager where managerId = #{managerId} and managerPwd = #{managerPwd}
+  		</select>
+  	
+  		<select id="getProduct" parameterType="com.snackking.model.ProductDTO" resultType="com.snackking.model.ProductDTO">
+  			select * from product where 1 = 1
+			and product_id = #{product_id}
+		</select>
+  	
+  		<insert id="insertProduct" parameterType="com.snackking.model.ProductDTO">
+  			insert into product(product_kind, product_name, product_price, discount_rate, product_sale_price, product_qty, product_brand, product_image, product_content, product_content_image) 
+			values (#{product_kind}, #{product_name}, #{product_price}, #{discount_rate}, #{product_sale_price}, #{product_qty}, #{product_brand}, #{product_image},  #{product_content},  #{product_content_image});
+  		</insert>
+  		
+  		<select id="getMProductList" resultType="com.snackking.model.ProductDTO">
+	  		select * from product where 1 = 1
+			order by product_id desc
+			limit #{start}, 10;
+		</select>
+		
+		<select id="getMCProductList" parameterType="com.snackking.model.MyBatisDTO" resultType="com.snackking.model.ProductDTO">
+	  		select * from product where 1 = 1
+	  		and product_kind like #{str1}
+			order by product_id desc
+			limit #{int1}, 10;
+		</select>
+		
+		<select id="getMProductCount" resultType="int">
+  			select count(*) from product where 1 = 1
+		</select>
+		
+		<select id="getMCProductCount" resultType="int">
+  			select count(*) from product where 1 = 1
+  			and product_kind like #{category}
+		</select>
+		
+  	</mapper>

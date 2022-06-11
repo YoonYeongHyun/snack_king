@@ -1,5 +1,7 @@
 package com.snackking.mapper;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,25 @@ public class MemberTests{
 	
 	@Autowired
 	private MemberMapper membermapper; // 인터페이스 의존성 주입
+		/*
+		@Test
+		public void testmemberLogin() {
+			//HashMap<String, String> map = new HashMap<String, String>();
+			//map.put("id", "yyh455");
+			//map.put("pwd", "1234");
+			MemberDTO member = new MemberDTO();
+			member.setId("yyh455");
+			member.setPwd("1234");
+			int cnt = membermapper.memberLogin(member);
+			System.out.println(cnt);
+		}
+		 */
 	
-	//회원가입 쿼리 테스트 메서드
+	
+	
+	
+		//회원가입 쿼리 테스트 메서드
+		/*
 		@Test
 		public void memberJoin() throws Exception{
 			MemberDTO member = new MemberDTO();
@@ -28,8 +47,13 @@ public class MemberTests{
 			member.setAddrNum("addrNum");
 			member.setAddr1("addr1");
 			member.setAddr2("addr2");
-			
-			membermapper.memberJoin(member);			//jUnit실행
-			
+			membermapper.memberJoin(member);			//jUnit실행	
+		}*/
+		/*
+		@Test
+		public void memberidchk() throws Exception{
+			String id = "bbb2222";
+			membermapper.idCheck(id);
 		}
+		*/
 }

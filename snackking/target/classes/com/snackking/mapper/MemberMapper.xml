@@ -3,8 +3,16 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	<mapper namespace="com.snackking.mapper.MemberMapper">
+  	
 		<insert id="memberJoin">
-  			insert into member values(#{id}, #{pwd}, #{name}, #{email}, #{tel}, #{addrNum}, #{addr1}, #{addr1}, now()); 
-
+  			insert into member values(#{id}, #{pwd}, #{name}, #{email}, #{tel}, #{addrNum}, #{addr1}, #{addr1}, now())
   		</insert>
+  		
+  		<select id="idCheck" resultType="int">
+  			select count(*) from member where id = #{id}
+  		</select>
+  		
+  		<select id="memberLogin" parameterType="com.snackking.model.MemberDTO" resultType="int">
+  			select count(*) from member where id = #{id} and pwd = #{pwd}
+  		</select>
 	</mapper>

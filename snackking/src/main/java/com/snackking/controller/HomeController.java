@@ -1,11 +1,60 @@
 package com.snackking.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.snackking.model.ProductDTO;
+import com.snackking.service.ProductService;
+
+import lombok.extern.log4j.Log4j2;
+@Log4j2
 @Controller
 public class HomeController {
 
-	 @GetMapping("/")
-	 public String home(){ return "main"; }
+	@Autowired
+	private ProductService productService;
+	HttpSession session;
+	/*
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Model model, HttpServletRequest requset){ 
+		log.info("메인 페이지 진입");
+		session = requset.getSession();
+		if(session.getAttribute("memberId") == null) {
+			model.addAttribute("memberId", "");
+		} else {
+			model.addAttribute("memberId", session.getAttribute("memberId"));
+		}
+		List<ProductDTO> list1 = productService.getMainProductList1();
+		List<ProductDTO> list2 = productService.getMainProductList2();
+		model.addAttribute("list1", list1);
+		model.addAttribute("list2", list2);
+			
+		return "main"; 
+	}
+	*/
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Model model, HttpServletRequest requset){ 
+		log.info("매니저 관리 페이지 진입");
+		session = requset.getSession();
+		if(session.getAttribute("memberId") == null) {
+			model.addAttribute("memberId", "");
+		} else {
+			model.addAttribute("memberId", session.getAttribute("memberId"));
+		}
+		/*
+		List<ProductDTO> list1 = productService.getMainProductList1();
+		List<ProductDTO> list2 = productService.getMainProductList2();
+		model.addAttribute("list1", list1);
+		model.addAttribute("list2", list2);
+		*/
+		return "manager/login"; 
+	}
 }

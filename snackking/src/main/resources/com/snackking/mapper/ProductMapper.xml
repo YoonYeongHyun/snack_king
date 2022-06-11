@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snackking.mapper.ProductMapper">
+	
+	<select id="getMainProductList1" resultType="com.snackking.model.ProductDTO">
+  		select * from product order by product_sales desc limit 0, 8;
+  	</select>
+  	
+  	<select id="getMainProductList2" resultType="com.snackking.model.ProductDTO">
+  		select * from product where discount_rate >= 30 order by discount_rate desc limit 0, 8;
+  	</select>
+
+	<select id="getProductList" resultType="com.snackking.model.ProductDTO">
+  		select * from product where 1 = 1
+		<if test='product_kind != null'> 
+		and product_kind like #{product_kind}
+		</if>
+  	</select>
+</mapper>

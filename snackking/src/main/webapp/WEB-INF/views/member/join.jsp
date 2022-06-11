@@ -10,6 +10,9 @@
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 let isChk = false;
 document.addEventListener("DOMContentLoaded", function(){
     let form = document.joinForm;
@@ -35,6 +38,32 @@ document.addEventListener("DOMContentLoaded", function(){
     	}
     });
     
+    $('#btn_chk_id').on("click", function(){
+    	let id = $('#id').val();			// .id_input에 입력되는 값
+    	let data = {id : id}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+    	if(id.length < 4 ){
+    		alert("아이디를 4글자 이상 입력하세요");
+    		return;
+    	}
+    	$.ajax({
+    		type : "post",
+    		url : "/member/memberIdChk",
+    		data : data,
+    		success : function(result){
+    			if(result == 'No'){
+    				chk_id.innerText = "중복된 아이디입니다.";
+    				chk_id.style.color = "red";		
+    				isChk = false;
+    			} else {
+    				chk_id.innerText = "사용 가능한 아이디입니다.";
+    				chk_id.style.color = "green";
+    				isChk = true;
+    			}
+    		}
+    	});
+
+    });// function 종료
+    /*
     //id의 중복체크
     let btn_chk_id = document.getElementById("btn_chk_id");
     btn_chk_id.addEventListener("click", function (){
@@ -47,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function(){
     		isChk = true;
     	}
     });
-    
+    */
   	//비밀번호의 유효성검사
     let chk_pwd = document.getElementById("chk_pwd");
     pwd.addEventListener("keyup", function (){
@@ -71,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function(){
     	}
     });
     
+
     //이메일 주소의 유효성검사
     let chk_email = document.getElementById("chk_email");
     email.addEventListener("keyup", function (){
@@ -150,13 +180,27 @@ document.addEventListener("DOMContentLoaded", function(){
 		form.submit();
   	});
 
-  	
+
+  	let btn_cancel = document.getElementById("btn_cancel");
+  	btn_cancel.addEventListener("click", function (){
+  		history.back();
+  		
+  	})
   	
 });
 
 </script>
 
 <body>
+
+<jsp:include page="../common/header.jsp">
+		<jsp:param name="memberId" value="${memberId}"/>
+</jsp:include>
+
+<jsp:include page="../common/sideBar.jsp">
+		<jsp:param name="memberId" value="${memberId}"/>
+</jsp:include>
+
 <div id="container">
 	<div class="s_title">회원가입</div>
 	<form action="/member/join" method="post" name="joinForm">
@@ -215,4 +259,5 @@ document.addEventListener("DOMContentLoaded", function(){
 	</form>
 </div>
 </body>
+<jsp:include page="../common/footer.jsp"></jsp:include>
 </html>

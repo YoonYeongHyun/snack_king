@@ -1,5 +1,7 @@
 package com.snackking.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,20 @@ public class MemberServiceImpl implements MemberService{
 	MemberMapper memberMapper;
 	
 	@Override
-	public void memberJoin(MemberDTO member) throws Exception {
+	public void memberJoin(MemberDTO member) {
 		memberMapper.memberJoin(member);
+	}
+
+	@Override
+	public int idCheck(String id) throws Exception{
+
+		return memberMapper.idCheck(id);
+	}
+
+	@Override
+	public int memberLogin(MemberDTO member) {
+		
+		return memberMapper.memberLogin(member);
 	}
 
 }
