@@ -53,8 +53,7 @@ public class ManagerController {
 	}
 	
 
-	
-	@RequestMapping("/productManagement")
+	@RequestMapping(value = "/productManagement", method = RequestMethod.GET)
 	public String managementPOST(HttpServletRequest request, Model model, RedirectAttributes rttr) {
 		int productCount = 0;
 		String category = request.getParameter("category");

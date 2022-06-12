@@ -59,7 +59,6 @@ public class MemberController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public void loginGET() {
 		log.info("로그인 페이지 진입");
-		
 	}
 	
 	//로그인 페이지 이동

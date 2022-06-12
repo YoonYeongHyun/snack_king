@@ -57,7 +57,6 @@ public class ManagerServiceImpl implements ManagerService {
 		default: break;
 		}
 		return managerMapper.getMCProductList(mybatis);
-		//일단보류*******************************************************************************
 	}
 
 	@Override

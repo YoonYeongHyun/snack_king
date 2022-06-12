@@ -1,5 +1,6 @@
 <%@page import="java.util.List"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -133,12 +134,12 @@ $(document).ready(function(){
 	    e.preventDefault()
 	    if("${memberId}"==""){
 			alert("로그인 하세요");
-			location="../member/memberAll.jsp?"
+			location="/member/login"
 	    } else {
 		    $.ajax({
-		        type:'post',
+		        type:'get',
 		        async:false,
-		        url:'shopCartInsert.jsp',
+		        url:'/cartInsert',
 		        dataType:'text',
 		        data:{id:id,product_id:product_id, product_amount:product_amount},
 		        success:function(data, textStatus) {
@@ -185,7 +186,7 @@ $(document).ready(function(){
 			<c:set var="i" value="${i+1}" />
 			<td width="25%"> 
 				<div class="product_img_box" name="product_img_box">
-					<a href="shoppingAll.jsp?code=4&product_id=${list1.product_id}">
+					<a href="/productContent?product_id=${list1.product_id}">
 					<c:choose> 
 					<c:when test="${i == 1}">
 						<img class="medal" src="resources/icons/gold-medal.png" width="48px">
@@ -207,21 +208,21 @@ $(document).ready(function(){
 						<input type="hidden" value="${list1.product_image}">
 					</div>
 				</div>
-				<p><a href="shoppingAll.jsp?code=4&product_id=${list1.product_id}">${list1.product_name}</a></p>
-				    <c:choose>
-					<c:when test="${list1.discount_rate == 0}">
+				<p><a href="/productContent?product_id=${list1.product_id}">${list1.product_name}</a></p>
+				<c:choose>
+				<c:when test="${list1.discount_rate == 0}">
 					<span class="sale_price" style="color:black;">
 						<fmt:formatNumber value="${list1.product_sale_price}"/>원
 					</span>
-					</c:when>
-					<c:otherwise>
+				</c:when>
+				<c:otherwise>
 					<span class="price" style="color:#aaa;"><fmt:formatNumber value="${list1.product_price}"/>원</span>&nbsp;
 					<span class="sale_price"><fmt:formatNumber value="${list1.product_sale_price}"/>원</span>
-					</c:otherwise>
-					</c:choose>
-					<c:if test = "${i == 4}">
-						</tr><tr>
-      				</c:if>
+				</c:otherwise>
+				</c:choose>
+				<c:if test = "${i == 4}">
+					</tr><tr>
+      			</c:if>
 			</td>
 			</c:forEach>
 		</tr>
@@ -236,7 +237,7 @@ $(document).ready(function(){
 			<c:set var="i" value = "${i+1 }" />
 			<td width="25%"> 
 				<div class="product_img_box" name="product_img_box">
-					<a href="shoppingAll.jsp?code=4&product_id=${list2.product_id}">
+					<a href="/productContent?product_id=${list2.product_id}">
 					<c:choose> 
 					<c:when test="${i == 1}">
 						<img class="medal" src="resources/icons/gold-medal.png" width="48px">
@@ -258,25 +259,21 @@ $(document).ready(function(){
 						<input type="hidden" value="${list2.product_image}">
 					</div>
 				</div>
-				<p><a href="shoppingAll.jsp?code=4&product_id=${list2.product_id}">${list2.product_name}</a></p>
+				<p><a href="/productContent?product_id=${list2.product_id}">${list2.product_name}</a></p>
 				<c:choose>
-					<c:when test="${list2.discount_rate == 0}">
+				<c:when test="${list2.discount_rate == 0}">
 					<span class="sale_price" style="color:black;">
-						${list2.product_sale_price}원
+						<fmt:formatNumber value="${list2.product_sale_price}"/>원
 					</span>
-					</c:when>
-					<c:otherwise>
-					<span class="price" style="color:#aaa;">
-						${list2.product_price}원
-					</span>&nbsp;
-					<span class="sale_price">
-						${list2.product_sale_price}원
-					</span>
-					</c:otherwise>
-					</c:choose>
-					<c:if test = "${i == 4}">
+				</c:when>
+				<c:otherwise>
+					<span class="price" style="color:#aaa;"><fmt:formatNumber value="${list2.product_price}"/>원</span>&nbsp;
+					<span class="sale_price"><fmt:formatNumber value="${list2.product_sale_price}"/>원</span>
+				</c:otherwise>
+				</c:choose>
+				<c:if test = "${i == 4}">
 					</tr><tr>
-					</c:if>
+				</c:if>
 			</td>
 			</c:forEach>
 		</tr>

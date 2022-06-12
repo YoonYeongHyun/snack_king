@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
 body{margin: 0 auto; font-family: 'Gothic A1', sans-serif;}
 a {text-decoration: none; color:black;}
 ul{list-style-type: none;}
 li{float: left;}
+
 
 #top_menu{width:1200px; margin:0 auto; height: 40px;}
 #top_menu ul{display: inline-block; margin:0; padding:9.5px; float: right;}
@@ -36,10 +38,10 @@ li{float: left;}
 #lower_header li div a{font-size: 0.7em; height: 20px; margin-bottom: 5px;}
 #lower_header li div a:hover{font-size: 0.9em; font-weight: bold;}
 
-#hidden_box1{left:385px;}
-#hidden_box2{left:524px;}
-#hidden_box3{left:665px;}
-#hidden_box4{left:760px;}
+#hidden_box1{left:395px;}
+#hidden_box2{left:538px;}
+#hidden_box3{left:680px;}
+#hidden_box4{left:785px;}
 .hidden_menu{width:150px; height:80px; position: absolute; bottom:-92px; border: 1px solid #eee; margin: auto; 
 			display: none; z-index: 1; background: white; padding:5px}
 .hidden_btn{font-size: 0.8em; color:#666; display: block;}
@@ -128,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function(){
 					</a>
 				</li>
 				<li>
-					<a href="shopping/shoppingAll.jsp?code=6">
+					<a href="/productCart">
 						<img src="../resources/icons/main_cart.png">
 					</a>
 				</li>
@@ -144,41 +146,41 @@ document.addEventListener("DOMContentLoaded", function(){
 	<div id="lower_header">
 		<nav class="inner_contents" id="header_nav">
 	        <ul>
-    	        <li><a href="../shopping/shoppingAll.jsp?code=3&subject=1">인기상품</a></li>
-                <li><a href="../shopping/shoppingAll.jsp?code=3&subject=2">특가상품</a></li>
-                <li><a href="../shopping/shoppingAll.jsp?category=5&code=2">세트상품</a></li>
+    	        <li><a href="/productList?subject=1">인기상품</a></li>
+                <li><a href="/productList?subject=1">특가상품</a></li>
+                <li><a href="/productList?category=5">세트상품</a></li>
                 <li name="showing_btn">
-        	      	<a href="../shopping/shoppingAll.jsp?category=1&code=2">과자</a>
+        	      	<a href="/productList?category=1">과자</a>
                    	<div class="hidden_menu" id="hidden_box1">
-             		<a href="../shopping/shoppingAll.jsp?category=101&code=2" class="hidden_btn">파이류</a>
-               		<a href="../shopping/shoppingAll.jsp?category=102&code=2" class="hidden_btn">비스킷류</a>
-               		<a href="../shopping/shoppingAll.jsp?category=103&code=2" class="hidden_btn">스넥류</a>
+             		<a href="/productList?category=101" class="hidden_btn">파이류</a>
+               		<a href="/productList?category=102" class="hidden_btn">비스킷류</a>
+               		<a href="/productList?category=103" class="hidden_btn">스넥류</a>
                	</div>
             </li>
             <li name="showing_btn">
-              	<a href="../shopping/shoppingAll.jsp?category=2&code=2">껌/초콜릿/사탕</a>
+              	<a href="/productList?category=2">껌/초콜릿/사탕</a>
                	<div class="hidden_menu" id="hidden_box2">
-               		<a href="../shopping/shoppingAll.jsp?category=201&code=2" class="hidden_btn">껌</a>
-               		<a href="../shopping/shoppingAll.jsp?category=202&code=2" class="hidden_btn">초콜릿</a>
-              		<a href="../shopping/shoppingAll.jsp?category=203&code=2" class="hidden_btn">사탕</a>
+               		<a href="/productList?category=201" class="hidden_btn">껌</a>
+               		<a href="/productList?category=202" class="hidden_btn">초콜릿</a>
+              		<a href="/productList?category=203" class="hidden_btn">사탕</a>
                	</div>
          	</li>
             <li name="showing_btn">
-               	<a href="../shopping/shoppingAll.jsp?category=3&code=2">라면</a>
+               	<a href="/productList?category=3">라면</a>
                	<div class="hidden_menu" id="hidden_box3">
-               		<a href="../shopping/shoppingAll.jsp?category=301&code=2" class="hidden_btn">봉지라면</a>
-              		<a href="../shopping/shoppingAll.jsp?category=302&code=2" class="hidden_btn">컵라면</a>
+               		<a href="/productList?category=301" class="hidden_btn">봉지라면</a>
+              		<a href="/productList?category=302" class="hidden_btn">컵라면</a>
                	</div>
             </li>
           	<li name="showing_btn">
-               	<a href="../shopping/shoppingAll.jsp?category=4&code=2">음료</a>
+               	<a href="/productList?category=4">음료</a>
                	<div class="hidden_menu" id="hidden_box4">
-               		<a href="../shopping/shoppingAll.jsp?category=401&code=2" class="hidden_btn">탄산음료</a>
-               		<a href="../shopping/shoppingAll.jsp?category=402&code=2" class="hidden_btn">이온음료</a>
-               		<a href="../shopping/shoppingAll.jsp?category=403&code=2" class="hidden_btn">주스</a>
+               		<a href="/productList?category=401" class="hidden_btn">탄산음료</a>
+               		<a href="/productList?category=402" class="hidden_btn">이온음료</a>
+               		<a href="/productList?category=403" class="hidden_btn">주스</a>
                	</div>
             </li>
-	        <li><a href="../shopping/shoppingAll.jsp?category=6&code=2">수입과자</a> </li>
+	        <li><a href="/productList?category=6">수입과자</a> </li>
    		</ul>
   	</nav>
 </div>

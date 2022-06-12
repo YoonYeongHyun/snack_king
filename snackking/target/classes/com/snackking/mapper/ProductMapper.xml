@@ -5,17 +5,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.snackking.mapper.ProductMapper">
 	
 	<select id="getMainProductList1" resultType="com.snackking.model.ProductDTO">
-  		select * from product order by product_sales desc limit 0, 8;
+  		select * from product 
+  		order by product_sales desc 
+  		limit 0, 8;
   	</select>
   	
   	<select id="getMainProductList2" resultType="com.snackking.model.ProductDTO">
-  		select * from product where discount_rate >= 30 order by discount_rate desc limit 0, 8;
+  		select * from product 
+  		where discount_rate >= 30 
+  		order by discount_rate desc 
+  		limit 0, 8;
   	</select>
 
-	<select id="getProductList" resultType="com.snackking.model.ProductDTO">
+
+	<select id="getProduct" resultType="com.snackking.model.ProductDTO">
   		select * from product where 1 = 1
-		<if test='product_kind != null'> 
-		and product_kind like #{product_kind}
-		</if>
-  	</select>
+  		and product_id like #{product_id}
+	</select>
+	
+	<select id="getCProductCount" resultType="int">
+  		select count(*) from product where 1 = 1
+  		and product_kind like #{category}
+	</select>
+	
+	<!-- 서로다른 타입의 파라미터를 못받으므로 MyBatisDTO에 담아서 쿼리 -->
+	<select id="getCProductList" parameterType="com.snackking.model.MyBatisDTO" resultType="com.snackking.model.ProductDTO">
+	  	select * from product where 1 = 1
+	  	and product_kind like #{str1}
+		order by product_id desc
+		limit #{int1}, 20;
+	</select>
+	
+	<select id="getProductReviewCount" resultType="int">
+  		select count(*) from review where 1 = 1
+  		and product_id = #{product_id}
+	</select>
+	
+	<select id="getProductReviewList" parameterType="com.snackking.model.MyBatisDTO" resultType="com.snackking.model.ReviewDTO">
+  		select * from review where 1 = 1
+  		and product_id like #{int1}
+  		order by re_num	 desc
+		limit #{int2}, 10;
+	</select>
+	
+	<select id="getCartList" resultType="com.snackking.model.CartDTO">
+  		select * from cart where 1 = 1
+  		and id like #{id}
+  		order by cart_num desc
+	</select>
+	<insert id="cartInsert" parameterType="com.snackking.model.MyBatisDTO">
+		insert into cart(id, product_id, product_amount) 
+		values(#{str1}, #{int1}, #{int2})
+	</insert>
+	
 </mapper>

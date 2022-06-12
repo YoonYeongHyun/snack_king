@@ -22,7 +22,7 @@ public class HomeController {
 	@Autowired
 	private ProductService productService;
 	HttpSession session;
-	/*
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest requset){ 
 		log.info("메인 페이지 진입");
@@ -37,9 +37,9 @@ public class HomeController {
 		model.addAttribute("list1", list1);
 		model.addAttribute("list2", list2);
 			
-		return "main"; 
+		return "/main"; 
 	}
-	*/
+	/*
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest requset){ 
 		log.info("매니저 관리 페이지 진입");
@@ -49,12 +49,13 @@ public class HomeController {
 		} else {
 			model.addAttribute("memberId", session.getAttribute("memberId"));
 		}
-		/*
+		
 		List<ProductDTO> list1 = productService.getMainProductList1();
 		List<ProductDTO> list2 = productService.getMainProductList2();
 		model.addAttribute("list1", list1);
 		model.addAttribute("list2", list2);
-		*/
+		
 		return "manager/login"; 
-	}
+	}*/
+	
 }
