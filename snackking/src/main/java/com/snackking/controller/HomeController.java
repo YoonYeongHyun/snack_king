@@ -15,6 +15,7 @@ import com.snackking.model.ProductDTO;
 import com.snackking.service.ProductService;
 
 import lombok.extern.log4j.Log4j2;
+
 @Log4j2
 @Controller
 public class HomeController {

@@ -308,12 +308,12 @@ window.addEventListener("scroll", (event) => {
 								<p>${review.re_content}</p>
 							</td>
 						</tr>
-				</c:forEach>
+					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
 		<div id="paging">
-			<c:set var="cnt" value="${revieCount}" />
+			<c:set var="cnt" value="${reviewCount}" />
 			<c:set var="currentPage" value="${reviewPageNum}" />
 			<c:set var="pageSize" value="10" />
 			<c:if test="${cnt > 0}">
@@ -339,10 +339,10 @@ window.addEventListener("scroll", (event) => {
 					<c:set var="endPage" value="${pageCount}"/>
 				</c:if>
 				<c:if test="${startPage > 10}">
-					<a href='productManagement?pageNum=1&category=${category}&search='>
+					<a href='productContent?reviewPageNum=1&product_id=${product.product_id}#location2'>
 						<div id='p_box' class='p_box_b' title='첫 페이지'>≪</div>
 					</a>
-					<a href='productManagement?pageNum=${startPage-10}&category=${category}'>
+					<a href='productContent?reviewPageNum=${startPage-10}&product_id=${product.product_id}#location2'>
 						<div id='p_box' class='p_box_b'title='이전 페이지'>＜</div>
 					</a>
 				</c:if>
@@ -354,7 +354,7 @@ window.addEventListener("scroll", (event) => {
 							</div>
 						</c:when>
 						<c:otherwise>
-							<a href='productManagement?pageNum=${status.count+currentPage_stage*10}&category=${category}'>
+							<a href='productContent?reviewPageNum=${status.count+currentPage_stage*10}&product_id=${product.product_id}#location2'>
 								<div id='p_box'> 
 									<c:out value="${status.count+currentPage_stage*10}" />
 								</div>
@@ -363,10 +363,10 @@ window.addEventListener("scroll", (event) => {
 					</c:choose>
 				</c:forEach>
 				<c:if test="${endPage <= pageCount - (pageCount % pageSize)}">
-					<a href='productManagement?pageNum=${startPage+10}&category=${category}'>
+					<a href='productContent?reviewPageNum=${startPage+10}&product_id=${product.product_id}#location2'>
 						<div id='p_box' class='p_box_b' title='다음 페이지'>＞</div>
 					</a>
-					<a href='productManagement?pageNum=${pageCount}&category=${category}'>
+					<a href='productContent?reviewPageNum=${pageCount}&product_id=${product.product_id}#location2'>
 						<div id='p_box' class='p_box_b' title='끝 페이지'>≫</div>
 					</a>
 				</c:if>

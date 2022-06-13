@@ -19,7 +19,15 @@ public class ProductMapperTests {
 	
 	@Autowired
 	private ProductMapper mapper;
-	
+	/*
+	@Test
+	public void getProductListTest() {
+		MyBatisDTO mybatis = new MyBatisDTO();
+		mybatis.setInt1(0);
+		mybatis.setStr1("101");
+		
+		System.out.println();*/
+	/*
 	@Test
 	public void getProductListTest() {
 		MyBatisDTO mybatis = new MyBatisDTO();
@@ -29,7 +37,7 @@ public class ProductMapperTests {
 		List<ProductDTO> product = mapper.getCProductList(mybatis);
 		System.out.println(product);
 	}
-	
+	*/
 	/* xml 전체 리스트 쿼리문 테스트
 	@Test
 	public void getProductListTest() {

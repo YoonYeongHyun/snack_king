@@ -18,6 +18,7 @@
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
+	
 	<!-- 다중 업로드 & Multipart객체를 컨트롤러에 전달함 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
   		<property name="maxUploadSize" value="-1"></property>
@@ -27,7 +28,7 @@
 		<property name="dataSource" ref="datasource"></property>
 	</bean>	
 	
-	<mybatis-spring:scan base-package="com.snackking.mapper"/>
+	<mybatis-spring:scan base-package="com.snackking.mapper"/> <!-- 쿼리문을실행하기위한 인터페이스 설정 -->
 	<context:component-scan base-package="com.snackking.model"></context:component-scan>
 	<context:component-scan base-package="com.snackking.service"></context:component-scan>
 </beans>

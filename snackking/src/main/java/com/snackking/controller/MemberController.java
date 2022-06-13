@@ -61,8 +61,7 @@ public class MemberController {
 		log.info("로그인 페이지 진입");
 	}
 	
-	//로그인 페이지 이동
-	
+	//로그인 페이지 처리
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String loginDoPOST(HttpServletRequest request, MemberDTO member, RedirectAttributes rttr) {
 		log.info("로그인");
@@ -74,6 +73,15 @@ public class MemberController {
 			session.setAttribute("memberId", member.getId());
 		}
 	    
+		return "redirect:/main";		
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		log.info("로그아웃");
+		HttpSession session = request.getSession(); //세션 선언 및초기화
+		session.setAttribute("memberId", null);
+		session.setMaxInactiveInterval(0);
 		return "redirect:/main";		
 	}
 }

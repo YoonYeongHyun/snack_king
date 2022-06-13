@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.snackking.mapper.ProductMapper;
 import com.snackking.model.CartDTO;
+import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
 import com.snackking.model.ProductDTO;
 import com.snackking.model.ReviewDTO;
@@ -87,6 +88,24 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 
+	public void cartUpdate(MyBatisDTO mybatis) {
+		productMapper.cartUpdate(mybatis);
+	}
+	
+	public void cartDeleteSe(MyBatisDTO mybatis) {
+		productMapper.cartDeleteSe(mybatis);
+	}
 
+	@Override
+	public void cartCheck(MyBatisDTO mybatis) {
+		
+		
+	}
+
+	@Override
+	public MemberDTO getOrderMember(String id) {
+		
+		return productMapper.getOrderMember(id);
+	}
 
 }

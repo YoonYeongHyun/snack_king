@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.snackking.model.CartDTO;
+import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
 import com.snackking.model.ProductDTO;
 import com.snackking.model.ReviewDTO;
@@ -85,7 +86,6 @@ public class ProductController {
 		if (reviewPageNum == null) reviewPageNum = "1";
 		int start = ((Integer.parseInt(reviewPageNum))-1)*10;
 		
-		
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		ProductDTO product = new ProductDTO();
 		product = productService.getProduct(product_id);
@@ -96,8 +96,39 @@ public class ProductController {
 		List<ReviewDTO> review = productService.getProductReviewList(mybatis);
 		int reviewCount = productService.getProductReviewCount(product_id);
 		
+
+		//세션 사용 최근본 목록
+		List<ProductDTO> viewedProductList = (List<ProductDTO>) session.getAttribute("viewedProductList");
+		System.out.println(viewedProductList);
+		if(viewedProductList == null) {
+			viewedProductList = new ArrayList<ProductDTO>();
+		}
+		boolean flag = true;
+		if(viewedProductList.size()==0) {
+			viewedProductList.add(0, product);
+		}else {
+			for(ProductDTO viewedProduct : viewedProductList) {
+				if(viewedProduct.getProduct_id() == product_id) {
+					flag = false;
+					System.out.println("같은이름 발생");
+					break;
+				}else {
+					if(viewedProductList.size() == 5) {
+						viewedProductList.remove(0);
+						viewedProductList.add(0, product);
+						flag = false;
+						 System.out.println("1번째 삭제");
+						break;
+					}
+				}
+			}
+			if(flag) viewedProductList.add(0, product);
+		}
+		
+		session.setAttribute("viewedProductList", viewedProductList);
 		model.addAttribute("product", product);
 		model.addAttribute("review", review);
+		model.addAttribute("reviewPageNum", reviewPageNum);
 		model.addAttribute("reviewCount", reviewCount);
 		return "/product/productContent";	
 	}
@@ -136,9 +167,67 @@ public class ProductController {
 		model.addAttribute("productList", productList);
 		model.addAttribute("cart_cnt", cartList.size());
 
+		;
+
 
 		
 		return "/product/productCart";	
+	}
+	
+	@RequestMapping(value = "/cartUpdate", method = RequestMethod.POST)
+	public String cartUpdate(HttpServletRequest request, Model model, RedirectAttributes rttr) {
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		log.info( memberId + "님 장바구니수정");
+		MyBatisDTO mybatis = new MyBatisDTO();
+		String code = request.getParameter("code");
+		if(code.equals("1")) {
+			int product_id = Integer.parseInt(request.getParameter("product_id"));
+			int product_amount = Integer.parseInt(request.getParameter("product_amount"));
+			mybatis.setStr1(memberId);
+			mybatis.setInt1(product_amount);
+			mybatis.setInt2(product_id);
+			productService.cartUpdate(mybatis);
+		}else if(code.equals("2")) {
+			String product_ids = request.getParameter("product_ids");
+			String[] arr_product_ids = product_ids.split(",");
+			for(String product_id_str : arr_product_ids){
+				int product_id = Integer.parseInt(product_id_str);
+				mybatis.setStr1(memberId);
+				mybatis.setInt1(product_id);
+				productService.cartDeleteSe(mybatis);
+			}
+		}
+		return "/product/productCart";
+	}
+	
+	@RequestMapping(value = "/productOrder", method = RequestMethod.POST)
+	public String productOrder(HttpServletRequest request, Model model, RedirectAttributes rttr) {
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("memberId");
+		String product_id_str = request.getParameter("product_id");
+		String product_id_arr[] = product_id_str.split(",");
+		String purchase_amount_str = request.getParameter("purchase_amount");
+		String product_amount_arr[] = purchase_amount_str.split(",");
+		List<ProductDTO> product_list = new ArrayList<ProductDTO>();
+		List<Integer> product_amount_list = new ArrayList<Integer>();
+		
+		for(String product_id : product_id_arr) {
+			ProductDTO product = productService.getProduct(Integer.parseInt(product_id));
+			product_list.add(product);
+		}
+		
+		for(String product_amount : product_amount_arr) {
+			product_amount_list.add(Integer.parseInt(product_amount));
+		}
+
+		MemberDTO member = productService.getOrderMember(id);
+		
+		model.addAttribute("product_list", product_list);
+		model.addAttribute("product_amount_list", product_amount_list);
+		model.addAttribute("member", member);
+		
+		return "/product/productOrder";
 	}
 }
 

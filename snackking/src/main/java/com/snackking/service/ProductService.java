@@ -3,6 +3,7 @@ package com.snackking.service;
 import java.util.List;
 
 import com.snackking.model.CartDTO;
+import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
 import com.snackking.model.ProductDTO;
 import com.snackking.model.ReviewDTO;
@@ -23,4 +24,9 @@ public interface ProductService {
 	
 	public List<CartDTO> getCartList(String id);
 	public void cartInsert(MyBatisDTO mybatis); //카트 추가하기
+	public void cartCheck(MyBatisDTO mybatis);
+	public void cartUpdate(MyBatisDTO mybatis);
+	public void cartDeleteSe(MyBatisDTO mybatis);
+	
+	public MemberDTO getOrderMember(String id);
 }

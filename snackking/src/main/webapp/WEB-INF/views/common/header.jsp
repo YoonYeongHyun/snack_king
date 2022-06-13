@@ -86,13 +86,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	location="../shopping/shoppingAll.jsp?code=2&search=1" + search_input;
 	});
 	
-	let top_logout = document.getElementById("top_logout");
-	top_logout.addEventListener("click", function(){
-			window.open('../logon/memberLogout.jsp',"PopupWin",'width = 500, height = 200 left = 740');
-			setTimeout(function(){
-				location.reload();
-			},500);
-	});
 })
 
 </script>
@@ -105,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			<a href="/member/join" >회원가입</a>
 		</li>
 		<li class="hide_top_menu" id="top_logout">
-			<a href="#">로그아웃</a>
+			<a href="/member/logout">로그아웃</a>
 		</li>
 		<li>
 			<a href="@">마이페이지</a>

@@ -11,8 +11,8 @@
 	
 	<Loggers>
 		<Logger name="moniter.PrinterClient" level="DEBUG"></Logger>
-		<Root level="DEBUG">
-			<appender-ref ref="console-log" level="DEBUG" />
+		<Root level="INFO">
+			<appender-ref ref="console-log" level="INFO" />
 		</Root>
 	</Loggers>
 </Configuration>

@@ -25,7 +25,8 @@ td img{border: 1px solid #ccc;}
 							position: relative; border: 1px solid black; margin:0 10px; cursor: pointer; }
 .product__hidden_menu #like_btn{background: url("/resources/icons/heart.png") no-repeat center white}
 .product__hidden_menu #cart_btn{background: url("/resources/icons/basket.png") no-repeat center white}
-
+.product__hidden_menu #like_btn:hover{background: url("../resources/icons/heart_negative.png") no-repeat center #F39;border: 1px solid #F39;}
+.product__hidden_menu #cart_btn:hover{background: url("../resources/icons/basket_negative.png") no-repeat center #F39;border: 1px solid #F39;}
 #product_info{display:inline-block; width:240px; height: 63px;}
 .price{text-decoration: line-through;}
 .sale_price{color: red}
@@ -115,30 +116,37 @@ $(document).ready(function(){
 		let id = $('#cart_1').val();
 	    let product_id = $('#cart_2').val();
 	    let product_amount = $('#cart_3').val();
+	    let result = "";
 	    e.preventDefault()
-	    $.ajax({
-	        type:'post',
-	        async:false,
-	        url:'shopCartInsert.jsp',
-	        dataType:'text',
-	        data:{id:id,product_id:product_id, product_amount:product_amount},
-	        success: function(data, textStatus) {
-	        	alert("장바구니에 담겼습니다.")
-	        	$('#cart_box').attr('class','cart_disabled')
-	        	
-	        },
-	        error:function (data, textStatus) {
-	            alert("오류가 발생하였습니다.")
-	        }
-	    })    //ajax
-
+	    if("${memberId}"==""){
+			alert("로그인 하세요");
+			location="/member/login"
+	    } else {
+		    $.ajax({
+		        type:'post',
+		        async:false,
+		        url:'/cartInsert',
+		        dataType:'text',
+		        async: false,
+		        data:{id:id,product_id:product_id, product_amount:product_amount},
+		        success:function(data) {
+		        	$('#cart_box').attr('class','cart_disabled')
+		        	$('#cart_3').val(1);
+		        	alert("장바구니에 담겼습니다.");
+		        	
+		        },
+		        error:function (data) {
+		        	$('#cart_3').val() = 1;
+		        	alert("오류가 발생하였습니다.")
+		            
+		        }
+		    })
+	    }
 	})
-	
 	$('#cart_cancel').on("click", function(e){
 		$('#cart_box').attr('class','cart_disabled')
 	})
 });
-
 </script>
 <body>
 <jsp:include page="../common/header.jsp">

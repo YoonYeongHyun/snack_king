@@ -66,9 +66,15 @@ var swiper = new Swiper(".mySwiper", {
     keyboard: true,
 });
   
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function(){like_btn
 	let product_img_box = document.getElementsByName("product_img_box");
 	
+	product_img_box.forEach(element => element.addEventListener("mouseenter", function(e){
+		let product_image = e.target.firstChild.nextSibling;
+		product_image.style.opacity= "0.5";
+		let hidden_box = e.target.lastChild.previousSibling;
+		hidden_box.style.visibility="visible";
+	}));
 	product_img_box.forEach(element => element.addEventListener("mouseenter", function(e){
 		let product_image = e.target.firstChild.nextSibling;
 		product_image.style.opacity= "0.5";
@@ -137,17 +143,20 @@ $(document).ready(function(){
 			location="/member/login"
 	    } else {
 		    $.ajax({
-		        type:'get',
+		        type:'post',
 		        async:false,
 		        url:'/cartInsert',
 		        dataType:'text',
+		        async: false,
 		        data:{id:id,product_id:product_id, product_amount:product_amount},
-		        success:function(data, textStatus) {
+		        success:function(data) {
 		        	$('#cart_box').attr('class','cart_disabled')
+		        	$('#cart_3').val(1);
 		        	alert("장바구니에 담겼습니다.");
 		        },
-		        error:function (data, textStatus) {
-		            alert("오류가 발생하였습니다.")
+		        error:function (data) {
+		        	$('#cart_3').val() = 1;
+		        	alert("오류가 발생하였습니다.")       
 		        }
 		    })
 	    }
@@ -155,7 +164,6 @@ $(document).ready(function(){
 	$('#cart_cancel').on("click", function(e){
 		$('#cart_box').attr('class','cart_disabled')
 	})
-   
 });
 </script>
 
@@ -178,7 +186,7 @@ $(document).ready(function(){
 			<button id="cart_insert">장바구니 담기</button>
 		</div>
 	</div>
-	<h2>최고 할인상품</h2> 
+	<h2>최고 인기상품</h2> 
 	<table class="main_table">
 		<tr>
 			

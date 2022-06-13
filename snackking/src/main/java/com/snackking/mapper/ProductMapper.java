@@ -3,6 +3,7 @@ package com.snackking.mapper;
 import java.util.List;
 
 import com.snackking.model.CartDTO;
+import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
 import com.snackking.model.ProductDTO;
 import com.snackking.model.ReviewDTO;
@@ -22,6 +23,9 @@ public interface ProductMapper {
 	
 	public List<CartDTO> getCartList(String id); //계정별 카트 리스트 정보 받기
 	public void cartInsert(MyBatisDTO mybatis); //카트 추가하기
-
+	public void cartUpdate(MyBatisDTO mybatis); //카트 수량 변경
+	public void cartDeleteSe(MyBatisDTO mybatis); //선택된 카트 상품 삭제
+	
+	public MemberDTO getOrderMember(String id);
 	
 }

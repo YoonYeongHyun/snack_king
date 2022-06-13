@@ -158,19 +158,19 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 $(document).ready(function(){
 	$('.amount_btn').on("click", function(e){
-		let id = '${memberId}';
 	    let product_id = $(event.target).prev().prev().val();
 	    let product_amount = $(event.target).prev().prev().prev().val();
 	    let code = '1';
 	    $.ajax({
 	        type:'post',
 	        async:false,
-	        url:'shopCartUpdate.jsp',
+	        url:'/cartUpdate',
 	        dataType:'text',
-	        data:{id:id,product_id:product_id, product_amount:product_amount, code:code },
+	        data:{product_id:product_id, product_amount:product_amount, code:code },
 	        success:function(data, textStatus){
 	        	alert("수량이 변경되었습니다.");
 	        	location.reload();
+	        	
 	        },
 	        error:function (data, textStatus) {
 	            alert("오류가 발생하였습니다.")
@@ -185,7 +185,7 @@ $(document).ready(function(){
 	    $.ajax({
 	        type:'post',
 	        async:false,
-	        url:'shopCartUpdate.jsp',
+	        url:'/cartUpdate',
 	        dataType:'text',
 	        data:{id:id, product_ids:product_ids, code:code },
 	        success:function(data, textStatus){
@@ -226,7 +226,7 @@ $(document).ready(function(){
 			<c:when test="${cart_cnt eq 0}">
 				<tr><td colspan="7">장바구니가 비었습니다.</td></tr>
 			</c:when>
-			<c:otherwise>	
+			<c:otherwise>
 				<c:forEach var="cart" items="${cartList}" varStatus="status">
 					<c:set var="product" value="${productList[i]}" />
 					<tr>
@@ -247,7 +247,7 @@ $(document).ready(function(){
 							<input type="number" id="cart_num" value="${ cart.product_amount}" min="1" max="999">
 							<input type="hidden" id="cart_id" value="${ product.product_id}">
 							<br>
-							<button class="amount_btn">수량변경</button>
+							<button class="amount_btn" >수량변경</button>
 						</td>
 						<td><fmt:formatNumber value="${product.product_sale_price}"/>원</td>
 						<td style="font-weight:bold;">
@@ -283,12 +283,12 @@ $(document).ready(function(){
 	</div>
 	<c:if test="${cart_cnt ne 0}">
 		<div id="order_btns">
-			<form action="shoppingAll.jsp?code=5" method="post" name="order_form_selected"> 
+			<form action="productOrder" method="post" name="order_form_selected"> 
 				<input type="hidden" id="product_id_se" name="product_id">
 				<input type="hidden" id="purchase_amount_se" name="purchase_amount">
 				<input type="submit" id="se_purchase_btn" value="선택 상품 주문"></button>
 			</form>
-			<form action="shoppingAll.jsp?code=5" method="post" name="order_form_all"> 
+			<form action="productOrder" method="post" name="order_form_all"> 
 				<input type="hidden" id="product_id_all" name="product_id">
 				<input type="hidden" id="purchase_amount_all" name="purchase_amount">
 				<input type="submit" id="all_purchase_btn" value="전체 상품 주문"></button>

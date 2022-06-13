@@ -11,9 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	</select>
   	
   	<select id="getMainProductList2" resultType="com.snackking.model.ProductDTO">
-  		select * from product 
-  		where discount_rate >= 30 
-  		order by discount_rate desc 
+  		select * from product
+  		where discount_rate >= 30
+  		order by discount_rate desc
   		limit 0, 8;
   	</select>
 
@@ -53,9 +53,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		and id like #{id}
   		order by cart_num desc
 	</select>
+	
 	<insert id="cartInsert" parameterType="com.snackking.model.MyBatisDTO">
 		insert into cart(id, product_id, product_amount) 
 		values(#{str1}, #{int1}, #{int2})
 	</insert>
 	
+	<select id=""></select>
+	
+	<insert id="cartUpdate" parameterType="com.snackking.model.MyBatisDTO">
+		update cart set product_amount = #{int1} where 1 = 1 
+		and id = #{str1} and product_id = #{int2};
+	</insert>
+	
+	<delete id="cartDeleteSe" parameterType="com.snackking.model.MyBatisDTO">
+		delete from cart where 1=1
+		and product_id = #{int1} and id = #{str1};
+	</delete>
+	
+	<select id="getOrderMember" resultType="com.snackking.model.MemberDTO">
+		select * from member where 1=1
+		and id = #{id}
+			
+	</select>
 </mapper>
