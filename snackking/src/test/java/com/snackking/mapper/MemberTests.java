@@ -30,9 +30,6 @@ public class MemberTests{
 		}
 		 */
 	
-	
-	
-	
 		//회원가입 쿼리 테스트 메서드
 		/*
 		@Test

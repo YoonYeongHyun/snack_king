@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -30,7 +29,7 @@ td img{border: 1px solid #ccc;}
 #product_info{display:inline-block; width:240px; height: 63px;}
 .price{text-decoration: line-through;}
 .sale_price{color: red}
-		
+
 #paging{text-align: center; margin-top: 20px}
 #p_box{display: inline-block; width:25px; height:25px; border-radius: 10px; padding:5px; margin:5px }
 #p_box:hover{background: black; color:white;}
@@ -175,12 +174,12 @@ $(document).ready(function(){
 				<button id="cart_insert">장바구니 담기</button>
 			</div>
 		</div>
+		<div></div>
 		<table>
 			<tr>
 				<c:set var="rootCnt" value="${0}" />
 				<c:forEach items="${list}" var="list">  
 					<c:if test="${((rootCnt % 5) eq 0) && ((rootCnt ne 0))}"></tr><tr></c:if>
-						
 						<td width="20%"> 
 						<div class="product_img_box" name="product_img_box">
 							<a href="/productContent?product_id=${list.product_id}">
@@ -242,10 +241,10 @@ $(document).ready(function(){
 					<c:set var="endPage" value="${pageCount}"/>
 				</c:if>
 				<c:if test="${startPage > 10}">
-					<a href='productList?pageNum=1&category=${category}&search='>
+					<a href='productList?pageNum=1&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b' title='첫 페이지'>≪</div>
 					</a>
-					<a href='productList?pageNum=${startPage-10}&category=${category}'>
+					<a href='productList?pageNum=${startPage-10}&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b'title='이전 페이지'>＜</div>
 					</a>
 				</c:if>
@@ -257,7 +256,7 @@ $(document).ready(function(){
 							</div>
 						</c:when>
 						<c:otherwise>
-							<a href='productList?pageNum=${status.count+currentPage_stage*10}&category=${category}'>
+							<a href='productList?pageNum=${status.count+currentPage_stage*10}&category=${category}&search=${search}'>
 								<div id='p_box'> 
 									<c:out value="${status.count+currentPage_stage*10}" />
 								</div>
@@ -266,10 +265,10 @@ $(document).ready(function(){
 					</c:choose>
 				</c:forEach>
 				<c:if test="${endPage <= pageCount - (pageCount % pageBlock)}">
-					<a href='productList?pageNum=${startPage+10}&category=${category}'>
+					<a href='productList?pageNum=${startPage+10}&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b' title='다음 페이지'>＞</div>
 					</a>
-					<a href='productList?pageNum=${pageCount}&category=${category}'>
+					<a href='productList?pageNum=${pageCount}&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b' title='끝 페이지'>≫</div>
 					</a>
 				</c:if>

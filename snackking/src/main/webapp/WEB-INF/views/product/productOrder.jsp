@@ -21,19 +21,21 @@ table {border-top: 1px solid black; border-collapse: collapse; width: 100%;}
 .h2_side{display:inline-block; width:750px; text-align: right; font-size: 16px; margin:0px;}
 #order_table {border-top: 1px solid black; border-bottom: 1px solid #aaa; padding: 20px 0; display: inline-block; float: right;}
 #order_table th{ text-align: left; padding: 25px; font-size: 1.1em; font-weight:bolder;}
-#order_table td input[type="text"]{ width:300px;height:30px; font-size: 16px; padding: 6px 16px; border: 1px solid #aaa;}
+#order_table td input[type="text"]{height:30px; font-size: 16px; padding: 6px 16px; border: 1px solid #aaa;}
+#order_table td input[type="text"]:not(#delivery_addr0){ width:300px;}
+#delivery_addr0{ width:600px;}
 #order_table td p{display: inline-block; width: 600px}
 
 #delivery_table {border-top: 1px solid black; border-bottom: 1px solid #aaa; padding: 20px 0; display: inline-block; float: right;}
 #delivery_table th{ text-align: left; padding: 25px; font-size: 1.1em; font-weight:bolder;}
 #delivery_table td input[type="text"]{ height:30px; font-size: 16px; padding: 6px 16px; border: 1px solid #aaa;}
-#delivery_table td input[type="text"]:not(#delivery_addrNum, #delivery_addr1, #delivery_addr2){width:300px;}
+#delivery_table td input[type="text"]:not(#delivery_addrNum, #delivery_addr1, #delivery_addr2, #delivery_addr0){width:300px;}
 #delivery_addrNum{width:150px; margin-bottom:5px}
 #delivery_addr1{ margin-bottom:5px; width: 600px;}
-#delivery_addr2{ width: 600px;}
+#delivery_addr2, #delivery_addr0{ width: 600px;}
 #delivery_th{vertical-align: top;}
-
-
+#delivery_table #addr_btn{width: 70px;height:40px; background: white; border: 1px solid #bbb; cursor: pointer; }
+#delivery_table #addr_btn:hover{border: 1px solid black; font-weight: bold;}
 
 
 .fixed{position: absolute; top:384px;}
@@ -53,7 +55,7 @@ table {border-top: 1px solid black; border-collapse: collapse; width: 100%;}
 #final_payment_2 input[type="button"]{width:200px; height:50px; background:#ff3399; color: white; font-size:1.3em; font-weight:bold;
 cursor: pointer; border-radius:30px; border: 1px solid #eee;}
 
-#final_confirm{position:relative; width: 250px }
+#final_confirm{position:relative; width: 250px; margin-top: 30px}
 #final_confirm input{position: absolute; left: 0px; top: 0px}
 #final_confirm label{position: absolute; left: 30px; top: 0px display:inline-block; width: 200px;}
 				   
@@ -73,8 +75,26 @@ document.addEventListener("DOMContentLoaded", function(){
                 addr2.value = "";
                 addr2.focus(); //상세입력 포커싱
             }
-		}).open(); 
+		}).open();  
 	});
+	let final_order_btn = document.getElementById("final_order_btn");
+    let final_order_chk = document.getElementById("final_order_chk");
+    let Recipient_addr = document.getElementById("Recipient_addr");
+    let delivery_addrNum = document.getElementById("delivery_addrNum").value;
+    let delivery_addr1 = document.getElementById("delivery_addr1").value;
+    let delivery_addr2 = document.getElementById("delivery_addr2").value;
+    final_order_btn.addEventListener("click", function(){
+    	if(final_order_chk.checked){
+    		Recipient_addr.value = delivery_addrNum + " " + delivery_addr1 + " " + delivery_addr2;
+    		
+    		
+    		document.forms[0].submit();
+    	}else{
+    		alert("진행 동의에 대해 체크해주세요.");
+    	}
+    	
+    	
+    })
 });
 
 window.addEventListener("scroll", (event) => { 
@@ -97,7 +117,7 @@ window.addEventListener("scroll", (event) => {
 		<jsp:param name="memberId" value="${memberId}"/>
 </jsp:include>
 <div class="container">
-	<form action="">
+	<form action="orderComple" method="post" name="orderForm">
 		<div class="order_box">
 			<h1>상품주문</h1>
 			<table id="product_table">
@@ -116,6 +136,9 @@ window.addEventListener("scroll", (event) => {
 				<c:set var="product_amount_list" value="${product_amount_list}"/>
 				<c:set var="member" value="${member}"/>
 				<c:forEach var="product" items="${product_list}">
+					<input type="hidden" name="buy_product_id" value="${product.product_id}">
+					<input type="hidden" name="buy_product_amount" value="${product_amount_list[index]}">
+					<input type="hidden" name="buy_product_price" value="${product.product_sale_price}">
 					<tr>
 						<td>
 							<img src="/images_yhmall/${product.product_image}" style="width:100px; float: left;">
@@ -161,30 +184,24 @@ window.addEventListener("scroll", (event) => {
 			<table id="order_table">
 				<tr>
 					<th width="30%">주문자 성명&nbsp;<img src="../resources/icons/check.png" width="16px"></th>
-					<td width="70%"><input type="text" value="${member.name}"></td>
+					<td width="70%"><input type="text" value="${member.name}" name="buyer"></td>
 				</tr>
 				<tr>
 					<th>주소</th>
 					<td>
-						<p>[${member.addrNum}] ${member.addr1} ${member.addr2}</p>
-					</td>
-				</tr>
-				<tr>
-					<th>전화번호</th>
-					<td>
-						<input type="text">
+						<input type="text" readonly="readonly" value="[${member.addrNum}] ${member.addr1} ${member.addr2}" id="delivery_addr0" name="buyer_addr">
 					</td>
 				</tr>
 				<tr>
 					<th>휴대폰 번호&nbsp;<img src="../resources/icons/check.png" width="16px"></th>
 					<td>
-						<input type="text" value="${member.tel}">
+						<input type="text" value="${member.tel}" name="buyer_tel">
 					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 					<td>
-						<input type="text" value="${member.email}">
+						<input type="text" value="${member.email}" name="buyer_email">
 					</td>
 				</tr>
 			</table>
@@ -195,7 +212,7 @@ window.addEventListener("scroll", (event) => {
 			<table id="delivery_table">
 				<tr>
 					<th width="30%">이름&nbsp;<img src="../resources/icons/check.png" width="16px"></th>
-					<td width="70%"><input type="text" value="${member.name}"></td>
+					<td width="70%"><input type="text" value="${member.name}" name="Recipient"></td>
 				</tr>
 				<tr>
 					<th id="delivery_th" height="122px">주소&nbsp;<img src="../resources/icons/check.png" width="16px" style="vertical-align: top;"></th>
@@ -204,26 +221,25 @@ window.addEventListener("scroll", (event) => {
 						<input type="button" id="addr_btn" value="주소찾기"> <br>
 						<input type="text" id="delivery_addr1" value="${member.addr1}"> <br>
 						<input type="text" id="delivery_addr2" value="${member.addr2}">
+						<input type="hidden" value="" name="Recipient_addr" id="Recipient_addr">
+						<input type="hidden" value="${total_product_price}" name="total_product_price">
+						<input type="hidden" value="${delivery_fee}" name="delivery_fee">
+						<input type="hidden" value="${total_order_price}" name="total_order_price">
 					</td>
 				</tr>
 				<tr>
-					<th>전화번호</th>
+					<th>휴대폰 번호&nbsp;<img src="../resources/icons/check.png" width="16px" name="Recipient_tel"></th>
 					<td>
-						<input type="text">
+						<input type="text" value="${member.tel}" name="Recipient_tel">
 					</td>
 				</tr>
-				<tr>
-					<th>휴대폰 번호&nbsp;<img src="../resources/icons/check.png" width="16px"></th>
-					<td>
-						<input type="text" value="${member.tel}"> 
-					</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>
-						<input type="text" value="${member.email}">
-					</td>
-				</tr>
+			</table>
+		</div>
+		<div class="order_box">
+			<h2>결제수단 선택 / 결제 </h2>
+			<table>
+				<th>결제수단</th>
+				<td></td>
 			</table>
 		</div>
 	</form>
@@ -238,13 +254,8 @@ window.addEventListener("scroll", (event) => {
 		<div id="final_payment_2">
 			<span class="left_span">최종 결제금액</span>
 			<span class="right_span"><fmt:formatNumber value="${total_order_price}"/>원</span>
-			<form action="#" method="post">
-				<input type="button" id="final_order_btn" value="결제하기"> <br>
-				<input type="hidden" value="">
-				<input type="hidden" value="">
-				<input type="hidden" value="">
-				<input type="hidden" value="">
-			</form>
+				<input type="button" id="final_order_btn" value="결제하기"> 
+				<br>
 			<div id="final_confirm">
 				<input type="checkbox" id="final_order_chk"> 
 				<label for="final_order_chk"><strong>(필수)</strong>구매하신 상품에 대한 진행에 동의합니다.</label>

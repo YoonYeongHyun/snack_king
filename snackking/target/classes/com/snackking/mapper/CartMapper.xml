@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snackking.mapper.CartMapper">
+	<select id="getCartList" resultType="com.snackking.model.CartDTO">
+  		select * from cart where 1 = 1
+  		and id like #{id}
+  		order by cart_num desc
+	</select>
+	
+	<insert id="cartInsert" parameterType="com.snackking.model.MyBatisDTO">
+		insert into cart(id, product_id, product_amount) 
+		values(#{id}, #{product_id}, #{product_amount})
+	</insert>
+	
+	
+	<insert id="cartUpdate" parameterType="com.snackking.model.CartDTO">
+		update cart set product_amount = #{product_amount} where 1 = 1 
+		and id = #{id} and product_id = #{product_id};
+	</insert>
+	
+	<delete id="cartDeleteSe" parameterType="com.snackking.model.CartDTO">
+		delete from cart where 1=1
+		and product_id = #{product_id} and id = #{id};
+	</delete>
+
+
+
+</mapper>

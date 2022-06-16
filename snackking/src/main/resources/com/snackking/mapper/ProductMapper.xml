@@ -4,20 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.snackking.mapper.ProductMapper">
 	
-	<select id="getMainProductList1" resultType="com.snackking.model.ProductDTO">
-  		select * from product 
-  		order by product_sales desc 
-  		limit 0, 8;
+	<select id="getMainProductList" resultType="com.snackking.model.ProductDTO">
+  		select * from product where 1=1
+  		<if test='str !=null and str.equalsIgnoreCase("1")'>
+			order by product_sales desc 
+  		</if>
+ 		<if test='str !=null and str.equalsIgnoreCase("2")'>
+			and discount_rate >= 30
+  			order by discount_rate desc
+ 		</if>
+  		limit 0, 8;		
   	</select>
   	
-  	<select id="getMainProductList2" resultType="com.snackking.model.ProductDTO">
-  		select * from product
-  		where discount_rate >= 30
-  		order by discount_rate desc
-  		limit 0, 8;
-  	</select>
-
-
 	<select id="getProduct" resultType="com.snackking.model.ProductDTO">
   		select * from product where 1 = 1
   		and product_id like #{product_id}
@@ -25,13 +23,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getCProductCount" resultType="int">
   		select count(*) from product where 1 = 1
-  		and product_kind like #{category}
+  		and product_kind like #{str1}
+  		<if test='str2 != null'>
+		and product_name like #{str2}
+ 		</if>
 	</select>
 	
 	<!-- 서로다른 타입의 파라미터를 못받으므로 MyBatisDTO에 담아서 쿼리 -->
 	<select id="getCProductList" parameterType="com.snackking.model.MyBatisDTO" resultType="com.snackking.model.ProductDTO">
 	  	select * from product where 1 = 1
 	  	and product_kind like #{str1}
+	  	<if test='str2 != null'>
+		and product_name like #{str2}
+ 		</if>
 		order by product_id desc
 		limit #{int1}, 20;
 	</select>
@@ -47,29 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		order by re_num	 desc
 		limit #{int2}, 10;
 	</select>
-	
-	<select id="getCartList" resultType="com.snackking.model.CartDTO">
-  		select * from cart where 1 = 1
-  		and id like #{id}
-  		order by cart_num desc
-	</select>
-	
-	<insert id="cartInsert" parameterType="com.snackking.model.MyBatisDTO">
-		insert into cart(id, product_id, product_amount) 
-		values(#{str1}, #{int1}, #{int2})
-	</insert>
-	
-	<select id=""></select>
-	
-	<insert id="cartUpdate" parameterType="com.snackking.model.MyBatisDTO">
-		update cart set product_amount = #{int1} where 1 = 1 
-		and id = #{str1} and product_id = #{int2};
-	</insert>
-	
-	<delete id="cartDeleteSe" parameterType="com.snackking.model.MyBatisDTO">
-		delete from cart where 1=1
-		and product_id = #{int1} and id = #{str1};
-	</delete>
+
 	
 	<select id="getOrderMember" resultType="com.snackking.model.MemberDTO">
 		select * from member where 1=1

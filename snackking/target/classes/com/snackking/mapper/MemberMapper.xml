@@ -5,7 +5,7 @@
   	<mapper namespace="com.snackking.mapper.MemberMapper">
   	
 		<insert id="memberJoin">
-  			insert into member values(#{id}, #{pwd}, #{name}, #{email}, #{tel}, #{addrNum}, #{addr1}, #{addr1}, now())
+  			insert into member values(#{id}, #{pwd}, #{name}, #{email}, #{tel}, #{addrNum}, #{addr1}, #{addr2}, now())
   		</insert>
   		
   		<select id="idCheck" resultType="int">

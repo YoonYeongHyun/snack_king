@@ -62,10 +62,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	}
 	
 	document.getElementById('search_btn').addEventListener("click", function(){
-		let s_select = document.getElementById('s_select');
-		let s_input = document.getElementById('s_input');
-		let search = s_select.value + s_input.value; //검색분류와 검색값을 같이 보냄
-		location="productManagement.jsp?category=" +  + "&search=" + search;
+		let search = document.getElementById('s_input');
+		location="productManagement?category=" + ${category} + "&search=" + search.value;
 	});
 	
 	//리스트 수정 및 삭제 버튼 구현
@@ -209,10 +207,10 @@ function main_category(){
 					<c:set var="endPage" value="${pageCount}"/>
 				</c:if>
 				<c:if test="${startPage > 10}">
-					<a href='productManagement?pageNum=1&category=${category}&search='>
+					<a href='productManagement?pageNum=1&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b' title='첫 페이지'>≪</div>
 					</a>
-					<a href='productManagement?pageNum=${startPage-10}&category=${category}'>
+					<a href='productManagement?pageNum=${startPage-10}&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b'title='이전 페이지'>＜</div>
 					</a>
 				</c:if>
@@ -224,7 +222,7 @@ function main_category(){
 							</div>
 						</c:when>
 						<c:otherwise>
-							<a href='productManagement?pageNum=${status.count+currentPage_stage*10}&category=${category}'>
+							<a href='productManagement?pageNum=${status.count+currentPage_stage*10}&category=${category}&search=${search}'>
 								<div id='p_box'> 
 									<c:out value="${status.count+currentPage_stage*10}" />
 								</div>
@@ -233,10 +231,10 @@ function main_category(){
 					</c:choose>
 				</c:forEach>
 				<c:if test="${endPage <= pageCount - (pageCount % pageSize)}">
-					<a href='productManagement?pageNum=${startPage+10}&category=${category}'>
+					<a href='productManagement?pageNum=${startPage+10}&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b' title='다음 페이지'>＞</div>
 					</a>
-					<a href='productManagement?pageNum=${pageCount}&category=${category}'>
+					<a href='productManagement?pageNum=${pageCount}&category=${category}&search=${search}'>
 						<div id='p_box' class='p_box_b' title='끝 페이지'>≫</div>
 					</a>
 				</c:if>

@@ -33,16 +33,18 @@ public class HomeController {
 		} else {
 			model.addAttribute("memberId", session.getAttribute("memberId"));
 		}
-		List<ProductDTO> list1 = productService.getMainProductList1();
-		List<ProductDTO> list2 = productService.getMainProductList2();
+		
+		List<ProductDTO> list1 = productService.getMainProductList("1");
+		List<ProductDTO> list2 = productService.getMainProductList("2");
 		model.addAttribute("list1", list1);
 		model.addAttribute("list2", list2);
 			
 		return "/main"; 
 	}
-	/*
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model, HttpServletRequest requset){ 
+	
+	
+	@RequestMapping(value = "/manager", method = RequestMethod.GET)
+	public String managerHome(Model model, HttpServletRequest requset){ 
 		log.info("매니저 관리 페이지 진입");
 		session = requset.getSession();
 		if(session.getAttribute("memberId") == null) {
@@ -51,12 +53,8 @@ public class HomeController {
 			model.addAttribute("memberId", session.getAttribute("memberId"));
 		}
 		
-		List<ProductDTO> list1 = productService.getMainProductList1();
-		List<ProductDTO> list2 = productService.getMainProductList2();
-		model.addAttribute("list1", list1);
-		model.addAttribute("list2", list2);
 		
 		return "manager/login"; 
-	}*/
+	}
 	
 }

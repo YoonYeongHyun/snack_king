@@ -20,7 +20,7 @@ public interface ManagerMapper {
 	public List<ProductDTO> getMCProductList(MyBatisDTO mybatis);
 	
 	public int getMProductCount();
-	public int getMCProductCount(String category);
+	public int getMCProductCount(MyBatisDTO mybatis);
 
 	
 	

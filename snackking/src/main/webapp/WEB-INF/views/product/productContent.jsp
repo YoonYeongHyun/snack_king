@@ -154,18 +154,18 @@ $(document).ready(function(){
 	    e.preventDefault()
 	    if(id==null){
 			alert("로그인 하세요");
-			location="../member/memberAll.jsp?"
+			location="/member/login";
 	    }else{
 		    $.ajax({
 		        type:'post',
 		        async:false,
-		        url:'shopCartInsert.jsp',
+		        url:'/cartInsert',
 		        dataType:'text',
-		        data:{id:id,product_id:product_id, product_amount:product_amount},
-		        success:function(data, textStatus) {
+		        data:{product_id:product_id, product_amount:product_amount},
+		        success:function(data) {
 		        	alert("장바구니에 담겼습니다.");
 		        },
-		        error:function (data, textStatus) {
+		        error:function (data) {
 		            alert("오류가 발생하였습니다.")
 		        }
 		    })
@@ -218,11 +218,12 @@ window.addEventListener("scroll", (event) => {
 			<img src="/images_yhmall/${product.product_image}" width="500px" height="500px">
 		</div>
 		<div class="info_box">
-			<form action="shoppingAll.jsp?code=5" method="post">
-				<input type="hidden" name="product_id" value=${product_id}">
+			<form action="/productOrderOne" method="post">
+				<input type="hidden" name="product_id" value="${product.product_id}">
 				<div>
 					<p id="title">${product.product_name}</p>
 					<p>
+						<input type="hidden" name="product_sale_price" value="${product.product_sale_price}">
 						<span id="sale_price"><fmt:formatNumber value="${product.product_sale_price}"/>원</span>
 						<span id="origin_price"><fmt:formatNumber value="${product.product_price}"/>원</span>
 					</p>

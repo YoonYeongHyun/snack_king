@@ -23,7 +23,7 @@ li{float: left;}
 <aside class=side_bar id="sb1">
 	<div><p>최근 본 상품</p></div>
 	<c:forEach var="viewedProduct" items="${viewedProductList}">
-		<div><a href="/productContent?product_id=${viewdProduct.product_id}"> <img width="80px" height="80px" src="/images_yhmall/${viewedProduct.product_image}"> </a></div>
+		<div><a href="/productContent?product_id=${viewedProduct.product_id}"> <img width="80px" height="80px" src="/images_yhmall/${viewedProduct.product_image}"> </a></div>
 	</c:forEach>
 </aside>
 

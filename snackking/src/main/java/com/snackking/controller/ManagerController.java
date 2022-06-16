@@ -48,38 +48,44 @@ public class ManagerController {
 			
 		} else { 
 			return "/manager/login";
-		}
-			
+		}		
 	}
 	
 
 	@RequestMapping(value = "/productManagement", method = RequestMethod.GET)
 	public String managementPOST(HttpServletRequest request, Model model, RedirectAttributes rttr) {
-		int productCount = 0;
+		HttpSession session = request.getSession();
+		String str = (String) session.getAttribute("managerId");
+		log.info( "님 상품 관리 진입");
+		
+		
+		MyBatisDTO mybatis = new MyBatisDTO();
 		String category = request.getParameter("category");
 		if (category == null) { 
 			category = "0";
 		}
 		
-		productCount = managerService.getMCProductCount(category);
+		String search = request.getParameter("search");
+		if(!(search == null) && !("null".equals(search))) {
+			mybatis.setStr2("%" + search + "%");
+		}
 		
 		String pageNum = request.getParameter("pageNum");
 		if (pageNum == null) pageNum = "1";
+		
 		int start = ((Integer.parseInt(pageNum))-1)*10;
 		
-		MyBatisDTO mybatis = new MyBatisDTO();
+		
 		mybatis.setInt1(start);
 		mybatis.setStr1(category);
-		
-		HttpSession session = request.getSession();
-		String str = (String) session.getAttribute("managerId");
-		log.info( "님 상품 관리 진입");
 
+		int productCount = managerService.getMCProductCount(mybatis);
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
 		list = managerService.getMCProductList(mybatis);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("category", category);
+		model.addAttribute("search", search);
 		model.addAttribute("count", productCount);
 		model.addAttribute("pageNum", pageNum);
 		return "/manager/productManagement";		

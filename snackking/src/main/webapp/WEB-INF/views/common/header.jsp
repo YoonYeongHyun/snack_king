@@ -82,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	let search_icon = document.getElementById("search_icon");
 	search_icon.addEventListener("click", function(){
-	let search_input = document.getElementById("search_input").value;
-	location="../shopping/shoppingAll.jsp?code=2&search=1" + search_input;
+		let search_input = document.getElementById("search_input").value;
+		location="/productList?search=" + search_input;
 	});
 	
 })
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			<a href="/member/logout">로그아웃</a>
 		</li>
 		<li>
-			<a href="@">마이페이지</a>
+			<a href="/member/myPage">마이페이지</a>
 		</li>
 		<li>
 			<a href="@" >고객센터</a>

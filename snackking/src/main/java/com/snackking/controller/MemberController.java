@@ -82,6 +82,15 @@ public class MemberController {
 		HttpSession session = request.getSession(); //세션 선언 및초기화
 		session.setAttribute("memberId", null);
 		session.setMaxInactiveInterval(0);
-		return "redirect:/main";		
+		return "redirect:/main";			
+	}
+	
+	@RequestMapping(value = "myPage", method = RequestMethod.GET)
+	public String myPageGET(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("memberId");
+		log.info(id + "님 마이 페이지 진입");
+		
+		return "myPage";
 	}
 }

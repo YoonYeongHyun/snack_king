@@ -218,15 +218,15 @@ $(document).ready(function(){
 				</div>
 				<p><a href="/productContent?product_id=${list1.product_id}">${list1.product_name}</a></p>
 				<c:choose>
-				<c:when test="${list1.discount_rate == 0}">
-					<span class="sale_price" style="color:black;">
-						<fmt:formatNumber value="${list1.product_sale_price}"/>원
-					</span>
-				</c:when>
-				<c:otherwise>
-					<span class="price" style="color:#aaa;"><fmt:formatNumber value="${list1.product_price}"/>원</span>&nbsp;
-					<span class="sale_price"><fmt:formatNumber value="${list1.product_sale_price}"/>원</span>
-				</c:otherwise>
+					<c:when test="${list1.discount_rate == 0}">
+						<span class="sale_price" style="color:black;">
+							<fmt:formatNumber value="${list1.product_sale_price}"/>원
+						</span>
+					</c:when>
+					<c:otherwise>
+						<span class="price" style="color:#aaa;"><fmt:formatNumber value="${list1.product_price}"/>원</span>&nbsp;
+						<span class="sale_price"><fmt:formatNumber value="${list1.product_sale_price}"/>원</span>
+					</c:otherwise>
 				</c:choose>
 				<c:if test = "${i == 4}">
 					</tr><tr>
@@ -235,11 +235,9 @@ $(document).ready(function(){
 			</c:forEach>
 		</tr>
 	</table>
-	
 	<h2>최고 할인상품</h2> 
 	<table class="main_table">
 		<tr>
-		
 			<c:set var="i" value = "0" />
 			<c:forEach items="${list2}" var="list2"> 
 			<c:set var="i" value = "${i+1 }" />

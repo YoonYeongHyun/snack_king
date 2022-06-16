@@ -10,6 +10,8 @@ public class MyBatisDTO {
 	
 	private int int1;
 	private int int2;
+	private int int3;
 	private String str1;
 	private String str2;
+	private String str3;
 }

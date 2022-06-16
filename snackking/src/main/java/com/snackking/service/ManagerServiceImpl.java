@@ -66,21 +66,20 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public int getMCProductCount(String category) {
-		String cat = "";
-		switch (category) {
-		case "0": cat = "%"; break;
-		case "1": cat = "1%"; break;
-		case "2": cat = "2%"; break;
-		case "3": cat = "3%"; break;
-		case "4": cat = "4%"; break;
-		case "5": cat = "5%"; break;
-		case "6": cat = "6%"; break;
+	public int getMCProductCount(MyBatisDTO mybatis) {
+		
+		switch (mybatis.getStr1()) {
+		case "0": mybatis.setStr1("%"); break;
+		case "1": mybatis.setStr1("1%"); break;
+		case "2": mybatis.setStr1("2%"); break;
+		case "3": mybatis.setStr1("3%"); break;
+		case "4": mybatis.setStr1("4%"); break;
+		case "5": mybatis.setStr1("5%"); break;
+		case "6": mybatis.setStr1("6%"); break;
 
-		default:
-			break;
+		default: break;
 		}
-		return managerMapper.getMCProductCount(cat);
+		return managerMapper.getMCProductCount(mybatis);
 	}
 
 

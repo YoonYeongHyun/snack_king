@@ -29,7 +29,7 @@ table {border-top: 1px solid black; border-collapse: collapse; width: 100%;}
 
 #order_btns{width:1160px; height:112px; padding:20px; text-align: right;}
 #order_btns form{display: inline-block; width: 210px}
-#order_btns input[type="submit"]{width:200px; height:70px; padding: 10px; font-size: 1.2em; border: 1.5px solid #ccc; border-radius:20px; cursor: pointer;}
+#order_btns input[type="button"]{width:200px; height:70px; padding: 10px; font-size: 1.2em; border: 1.5px solid #ccc; border-radius:20px; cursor: pointer;}
 #se_purchase_btn{background: black; color:white;}
 #all_purchase_btn{background: white; color:black;}
 				   
@@ -38,10 +38,8 @@ table {border-top: 1px solid black; border-collapse: collapse; width: 100%;}
 document.addEventListener("DOMContentLoaded", function(){
 	let cart_cnt = ${cart_cnt};
 	if(cart_cnt != 0){
-
-		let cart_num = document.querySelectorAll('#cart_num')
 		
-		
+		let cart_num = document.querySelectorAll('#cart_num');
 		cart_num.forEach(element => element.addEventListener("keyup", function(e){
 			let cart_qty = e.target.previousSibling.previousSibling;
 			amount_func(e);
@@ -69,18 +67,10 @@ document.addEventListener("DOMContentLoaded", function(){
 				alert("1개 이상 주문하세요")
 			}
 		}
-		
-		let flag = true;
-		let cart_chk = document.getElementsByName("cart_chk");
 		let cart_chk_all = document.getElementById("cart_chk_all");
-		let chk_arr1 = [];
-		let chk_arr2 = [];
-		let chk_arr3 = [];
-		let chk_arr1_str;
-		let chk_arr2_str;
-		let sum = 0;
-		
+		let cart_chk = document.getElementsByName("cart_chk");
 		func01();
+
 		
 		cart_chk_all.addEventListener("click", function(){
 			if(cart_chk_all.checked){
@@ -95,7 +85,8 @@ document.addEventListener("DOMContentLoaded", function(){
 			func01();
 		});
 		
-	
+
+		
 		cart_chk.forEach(element => element.addEventListener("change", function(e){
 			let chk_cnt = cart_chk.length;
 			let chk_checked_cnt = 0;
@@ -104,44 +95,42 @@ document.addEventListener("DOMContentLoaded", function(){
 			}
 			if(chk_cnt == chk_checked_cnt) cart_chk_all.checked = true;
 			else cart_chk_all.checked = false;
-			
-			func01()
-			
+			func01();
 		}));
-	
+		
+		
+		document.getElementById("se_purchase_btn").addEventListener("click", function(){
+			document.getElementById('cartForm').submit();	
+		});
+		document.getElementById("all_purchase_btn").addEventListener("click", function(){
+			cart_chk.forEach(element => {
+				element.checked = true;
+			});
+			func01();
+			document.getElementById('cartForm').submit();
+		});
+		
 		function func01(){
 			let selected_cnt = 0;
-			chk_arr1 = [];
-			chk_arr2 = [];
-			chk_arr3 = [];
-			chk_arr1_str = ""
-			chk_arr2_str = "";
 			sum = 0;
 			cart_chk.forEach(element => {
 				if(element.checked){
-					chk_arr1.push(element.nextElementSibling.value);
-					chk_arr2.push(element.nextElementSibling.nextElementSibling.value);
-					chk_arr3.push(element.nextElementSibling.nextElementSibling.nextElementSibling.value);
+					let chk_product_id = element.nextElementSibling;
+					let chk_product_amount = element.nextElementSibling.nextElementSibling;
+					let chk_product_price = element.nextElementSibling.nextElementSibling.nextElementSibling;
+					
+					
+					chk_product_id.setAttribute('name', 'chk_product_id');
+					chk_product_amount.setAttribute('name', 'chk_product_amount');
+					chk_product_price.setAttribute('name', 'chk_product_price');
 					selected_cnt++;
+					sum += (chk_product_amount.value * chk_product_price.value);
+				}else{
+					element.nextElementSibling.setAttribute('name', 'unchk_product_id');
+					element.nextElementSibling.nextElementSibling.setAttribute('name', 'unchk_product_amount');
+					element.nextElementSibling.nextElementSibling.nextElementSibling.setAttribute('name', 'unchk_product_price');
 				}
-				
 			});
-			for(let i in chk_arr1){
-				sum += (chk_arr2[i] * chk_arr3[i]);
-			}
-			chk_arr1_str = chk_arr1.join();
-			chk_arr2_str = chk_arr2.join();
-			let product_id_se = document.getElementById("product_id_se");
-			let purchase_amount_se = document.getElementById("purchase_amount_se");
-			product_id_se.value = chk_arr1_str;
-			purchase_amount_se.value = chk_arr2_str;
-			if(flag==true){
-				let product_id_all = document.getElementById("product_id_all");
-				let purchase_amount_all = document.getElementById("purchase_amount_all");
-				product_id_all.value = chk_arr1_str;
-				purchase_amount_all.value = chk_arr2_str;
-				flag = false;
-			}
 			document.getElementById("final_price1").innerHTML = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			if(sum >= 40000){
 				document.getElementsByClassName('delivery_Fee')[0].innerHTML = 0;
@@ -160,40 +149,57 @@ $(document).ready(function(){
 	$('.amount_btn').on("click", function(e){
 	    let product_id = $(event.target).prev().prev().val();
 	    let product_amount = $(event.target).prev().prev().prev().val();
-	    let code = '1';
 	    $.ajax({
 	        type:'post',
 	        async:false,
 	        url:'/cartUpdate',
-	        dataType:'text',
-	        data:{product_id:product_id, product_amount:product_amount, code:code },
-	        success:function(data, textStatus){
+	        data:{product_id:product_id, product_amount:product_amount},
+	        success:function(data){
 	        	alert("수량이 변경되었습니다.");
 	        	location.reload();
-	        	
 	        },
-	        error:function (data, textStatus) {
+	        error:function (data) {
 	            alert("오류가 발생하였습니다.")
 	        }
 	    })
 	})
 	
 	$('#delete_btn').on("click", function(e){
-		let id = '${memberId}';
-	    let product_ids = $('#product_id_se').val();
-	    let code = '2';
+	    let product_ids = [];
+	    $('input[name="cart_chk"]:checked').each(function(i){//체크된 리스트 저장
+	    	product_ids.push($(this).next().val());
+        });
 	    $.ajax({
 	        type:'post',
 	        async:false,
-	        url:'/cartUpdate',
-	        dataType:'text',
-	        data:{id:id, product_ids:product_ids, code:code },
-	        success:function(data, textStatus){
+	        url:'/cartDelete',
+	        data:{product_ids : product_ids},
+	        success:function(data){
 	        	alert("삭제 하였습니다.");
 	        	location.reload();
 	        },
-	        error:function (data, textStatus) {
+	        error:function (data) {
 	           alert("오류가 발생하였습니다.")
+	        }
+	    })
+	})
+	
+	
+	$('#none_btn').on("click", function(e){
+		var data = {'message' : "message"};
+	    $.ajax({
+	        type:'post',
+	        async:false,
+	        url:'/cartNone',
+	        data : JSON.stringify(data),
+	        datatype: 'JSON',
+	        success:function(obj){       	
+	        	alert("성공 하였습니다.");
+	        	console.log(obj);
+	        	alert(obj);	        
+	        },
+	        error:function (obj) {
+	           alert("실패 하였습니다.");
 	        }
 	    })
 	})
@@ -209,67 +215,70 @@ $(document).ready(function(){
 <div class="container">
 	<h2>장바구니</h2>
 	<table id="cart_table">
-		<tr> 
-			<th width="4%"><input type="checkbox" id="cart_chk_all" checked></th>
-			<th width="12%"></th>
-			<th width="30%">상품명</th>
-			<th width="11%">수량</th>
-			<th width="14%">상품금액</th>
-			<th width="14%">합계금액</th>
-			<th width="15%">배송비</th> 
-		</tr>
-		<c:set var="flag" value="${true}"></c:set>
-		<c:set var="delivery_fee" value="${0}"></c:set>
-		<c:set var="cart_cnt" value="${cart_cnt}"></c:set>
-		<c:set var="i" value="${0}" />
-		<c:choose>
-			<c:when test="${cart_cnt eq 0}">
-				<tr><td colspan="7">장바구니가 비었습니다.</td></tr>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="cart" items="${cartList}" varStatus="status">
-					<c:set var="product" value="${productList[i]}" />
-					<tr>
-						<td>
-							<input type="checkbox" name="cart_chk" checked>
-							<input type="hidden" name="chk_product_id" value="${product.product_id}">
-							<input type="hidden" name="chk_product_amount" value="${cart.product_amount}">
-							<input type="hidden" name="chk_product_price" value="${ product.product_sale_price}">
-						</td>
-						<td>
-							<img src="/images_yhmall/${ product.product_image}" style="width:100px; float: left;" >
-						</td>
-						<td style="text-align: left;">
-							${ product.product_name}
-						</td>
-						<td>
-							<input type="hidden" id="cart_qty" value="${ product.product_qty}">
-							<input type="number" id="cart_num" value="${ cart.product_amount}" min="1" max="999">
-							<input type="hidden" id="cart_id" value="${ product.product_id}">
-							<br>
-							<button class="amount_btn" >수량변경</button>
-						</td>
-						<td><fmt:formatNumber value="${product.product_sale_price}"/>원</td>
-						<td style="font-weight:bold;">
-						 	<fmt:formatNumber value="${cart.product_amount * product.product_sale_price}"/>원
-						 </td>
-						<c:if test="${flag eq true }">
-							<td rowspan="${cart_cnt}">
-								<span>4만원이상무료</span><br>
-								<span class="delivery_Fee"></span>원<br>
-								<span>(택배-선결제)</span>
-								<c:set var="flag" value="${false}"/>								
+		<form action="/productOrderCart" method="post" id="cartForm">
+			<tr> 
+				<th width="4%"><input type="checkbox" id="cart_chk_all" checked></th>
+				<th width="12%"></th>
+				<th width="30%">상품명</th>
+				<th width="11%">수량</th>
+				<th width="14%">상품금액</th>
+				<th width="14%">합계금액</th>
+				<th width="15%">배송비</th> 
+			</tr>
+			<c:set var="flag" value="${true}"></c:set>
+			<c:set var="delivery_fee" value="${0}"></c:set>
+			<c:set var="cart_cnt" value="${cart_cnt}"></c:set>
+			<c:set var="i" value="${0}" />
+			<c:choose>
+				<c:when test="${cart_cnt eq 0}">
+					<tr><td colspan="7">장바구니가 비었습니다.</td></tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="cart" items="${cartList}" varStatus="status">
+						<c:set var="product" value="${productList[i]}" />
+						<tr>
+							<td>
+								<input type="checkbox" name="cart_chk" checked>
+								<input type="hidden" name="chk_product_id" value="${product.product_id}">
+								<input type="hidden" name="chk_product_amount" value="${cart.product_amount}">
+								<input type="hidden" name="chk_product_price" value="${ product.product_sale_price}">
 							</td>
-						</c:if>
-					</tr>
-					<c:set var="i" value="${i+1}" />
-				</c:forEach>
-			</c:otherwise>			
-		</c:choose>
+							<td>
+								<img src="/images_yhmall/${ product.product_image}" style="width:100px; float: left;" >
+							</td>
+							<td style="text-align: left;">
+								${ product.product_name}
+							</td>
+							<td>
+								<input type="hidden" id="cart_qty" value="${ product.product_qty}">
+								<input type="number" id="cart_num" value="${ cart.product_amount}" min="1" max="999">
+								<input type="hidden" id="cart_id" value="${ product.product_id}">
+								<br>
+								<button type="button" class="amount_btn" >수량변경</button>
+							</td>
+							<td><fmt:formatNumber value="${product.product_sale_price}"/>원</td>
+							<td style="font-weight:bold;">
+							 	<fmt:formatNumber value="${cart.product_amount * product.product_sale_price}"/>원
+							 </td>
+							<c:if test="${flag eq true }">
+								<td rowspan="${cart_cnt}">
+									<span>4만원이상무료</span><br>
+									<span class="delivery_Fee"></span>원<br>
+									<span>(택배-선결제)</span>
+									<c:set var="flag" value="${false}"/>								
+								</td>
+							</c:if>
+						</tr>
+						<c:set var="i" value="${i+1}" />
+					</c:forEach>
+				</c:otherwise>			
+			</c:choose>
+		</form>
 	</table>
 	<c:if test="${cart_cnt ne 0}">
 		<div id="delete_btns">
 			<button id=delete_btn>선택 상품 삭제</button>
+			<button id=none_btn>버튼</button>
 		</div>
 	</c:if>
 	<div id="order_info">
@@ -283,16 +292,8 @@ $(document).ready(function(){
 	</div>
 	<c:if test="${cart_cnt ne 0}">
 		<div id="order_btns">
-			<form action="productOrder" method="post" name="order_form_selected"> 
-				<input type="hidden" id="product_id_se" name="product_id">
-				<input type="hidden" id="purchase_amount_se" name="purchase_amount">
-				<input type="submit" id="se_purchase_btn" value="선택 상품 주문"></button>
-			</form>
-			<form action="productOrder" method="post" name="order_form_all"> 
-				<input type="hidden" id="product_id_all" name="product_id">
-				<input type="hidden" id="purchase_amount_all" name="purchase_amount">
-				<input type="submit" id="all_purchase_btn" value="전체 상품 주문"></button>
-			</form>
+				<input type="button" id="se_purchase_btn" value="선택 상품 주문">
+				<input type="button" id="all_purchase_btn" value="전체 상품 주문">
 		</div>
 	</c:if>
 </div>

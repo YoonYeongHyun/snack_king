@@ -25,7 +25,10 @@
 		
 		<select id="getMCProductList" parameterType="com.snackking.model.MyBatisDTO" resultType="com.snackking.model.ProductDTO">
 	  		select * from product where 1 = 1
-	  		and product_kind like #{str1}
+		  	and product_kind like #{str1}
+		  	<if test='str2 != null'>
+			and product_name like #{str2}
+	 		</if>
 			order by product_id desc
 			limit #{int1}, 10;
 		</select>
@@ -36,7 +39,9 @@
 		
 		<select id="getMCProductCount" resultType="int">
   			select count(*) from product where 1 = 1
-  			and product_kind like #{category}
+	  		and product_kind like #{str1}
+	  		<if test='str2 != null'>
+			and product_name like #{str2}
+ 		</if>
 		</select>
-		
   	</mapper>

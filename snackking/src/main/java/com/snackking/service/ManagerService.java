@@ -9,7 +9,7 @@ import com.snackking.model.ManagerDTO;
 import com.snackking.model.MyBatisDTO;
 import com.snackking.model.ProductDTO;
 
-@Service
+
 public interface ManagerService {
 
 	public int managerLogin(ManagerDTO manager);
@@ -22,5 +22,5 @@ public interface ManagerService {
 	public List<ProductDTO> getMCProductList(MyBatisDTO mybatis);
 	
 	public int getMProductCount();
-	public int getMCProductCount(String category);
+	public int getMCProductCount(MyBatisDTO mybatis);
 }
