@@ -1,6 +1,8 @@
 package com.snackking.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.snackking.model.CartDTO;
 import com.snackking.model.MemberDTO;
 import com.snackking.service.MemberService;
 
@@ -61,19 +65,41 @@ public class MemberController {
 		log.info("로그인 페이지 진입");
 	}
 	
-	//로그인 페이지 처리
+	/*로그인 페이지 처리
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String loginDoPOST(HttpServletRequest request, MemberDTO member, RedirectAttributes rttr) {
 		log.info("로그인");
 		HttpSession session = request.getSession(); //세션 선언 및초기화
 	    System.out.println(member);
 		int cnt = memberService.memberLogin(member);
-		log.info("cnt : " + cnt);
 		if(cnt==1) {
 			session.setAttribute("memberId", member.getId());
 		}
 	    
 		return "redirect:/main";		
+	}
+	*/
+	@ResponseBody
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String cartDelete(HttpServletRequest request, @RequestParam(value="id") String id, @RequestParam(value="pwd") String pwd, MemberDTO member) {
+		log.info("로그인 처리");
+		HttpSession session = request.getSession();
+		int cnt_id = memberService.memberLogin_id(member);
+		String result = "";
+		System.out.println(member);
+		if(cnt_id==1) {
+			int cnt_id_pwd = memberService.memberLogin_id_pwd(member);
+			if(cnt_id_pwd == 1) {
+				session.setAttribute("memberId", member.getId());
+				result = "success";
+			}else {
+				result = "error_password";
+			}
+		}else {
+			result = "error_id";
+		}
+		System.out.println(result);
+		return result;
 	}
 	
 	@RequestMapping("/logout")
@@ -82,7 +108,7 @@ public class MemberController {
 		HttpSession session = request.getSession(); //세션 선언 및초기화
 		session.setAttribute("memberId", null);
 		session.setMaxInactiveInterval(0);
-		return "redirect:/main";			
+		return "redirect:/main";
 	}
 	
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)

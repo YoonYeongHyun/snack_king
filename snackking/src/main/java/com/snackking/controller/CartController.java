@@ -1,9 +1,7 @@
 package com.snackking.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,16 +31,22 @@ public class CartController {
 	@Autowired
 	private ProductService productService;
 	
-	
+	@ResponseBody
 	@RequestMapping(value = "/cartInsert", method = {RequestMethod.GET, RequestMethod.POST})
 	public String cartInsert(HttpServletRequest request, CartDTO cart) {
 		log.info("장바구니 추가");
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("memberId");
-		cart.setId(id);
-		cartService.cartInsert(cart);
-
-		return "/product/productCart";	
+		int result = cartService.cartConfirm(cart);
+		String result_str;
+		if(result==0) {
+			cart.setId(id);	
+			cartService.cartInsert(cart);
+			result_str = "success";
+		}else {
+			result_str = "fail";
+		}
+		return result_str;	
 	}
 	
 
@@ -90,16 +94,9 @@ public class CartController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/cartNone", method = RequestMethod.POST)
-	public 	Map<String, String> cartNone(HttpServletRequest request) {
+	@RequestMapping(value = "/cartNone")
+	public 	String cartNone() {
 		log.info("테스트1 진입");
-		HttpSession session = request.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-		String message = request.getParameter("message");
-		Map<String, String> map = new HashMap<String,String>(); 
-		map.put("dog","강아지");
-	    map.put("cat","고양이");
-		System.out.println(map);
-		return map;
+		return "Oh Yeah";
 	}
 }

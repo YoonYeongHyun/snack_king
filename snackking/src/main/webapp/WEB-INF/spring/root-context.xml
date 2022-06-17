@@ -6,28 +6,28 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
  		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/db01?serverTimezone=Asia/Seoul"></property> 
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/db01?serverTimezone=Asia/Seoul"></property>
 		<property name="username" value="ezen01"></property>
 		<property name="password" value="1234"></property>
-	</bean>	
-	
+	</bean>
+
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
-	
+
 	<!-- 다중 업로드 & Multipart객체를 컨트롤러에 전달함 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
   		<property name="maxUploadSize" value="-1"></property>
 	</bean>
-	
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="datasource"></property>
 	</bean>	
-	
+
 	<mybatis-spring:scan base-package="com.snackking.mapper"/> <!-- 쿼리문을실행하기위한 인터페이스 설정 -->
 	<context:component-scan base-package="com.snackking.model"></context:component-scan>
 	<context:component-scan base-package="com.snackking.service"></context:component-scan>

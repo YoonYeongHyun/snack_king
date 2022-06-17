@@ -12,7 +12,11 @@
   			select count(*) from member where id = #{id}
   		</select>
   		
-  		<select id="memberLogin" parameterType="com.snackking.model.MemberDTO" resultType="int">
+  		<select id="memberLogin_id" parameterType="com.snackking.model.MemberDTO" resultType="int">
+  			select count(*) from member where id = #{id}
+  		</select>
+  		
+  		<select id="memberLogin_id_pwd" parameterType="com.snackking.model.MemberDTO" resultType="int">
   			select count(*) from member where id = #{id} and pwd = #{pwd}
   		</select>
 	</mapper>

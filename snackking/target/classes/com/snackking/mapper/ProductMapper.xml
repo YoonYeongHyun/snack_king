@@ -21,6 +21,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		and product_id like #{product_id}
 	</select>
 	
+	<select id="getCProductCount_sp" resultType="int">
+  		select count(*) from product where 1 = 1
+  		<if test='category !=null and str.equalsIgnoreCase("7")'>
+			order by product_sales desc 
+  		</if>
+ 		<if test='category !=null and str.equalsIgnoreCase("8")'>
+			and discount_rate >= 30
+  			order by discount_rate desc
+ 		</if>
+	</select>
+	
+	<select id="getCProductList_sp" parameterType="com.snackking.model.ProductDTO" resultType="com.snackking.model.ProductDTO">
+	  	select * from product where 1 = 1
+	  	<if test='category !=null and str.equalsIgnoreCase("7")'>
+			order by product_sales desc 
+  		</if>
+ 		<if test='category !=null and str.equalsIgnoreCase("8")'>
+			and discount_rate >= 30
+  			order by discount_rate desc
+ 		</if>
+		limit #{int1}, 20;
+	</select>
+	
 	<select id="getCProductCount" resultType="int">
   		select count(*) from product where 1 = 1
   		and product_kind like #{str1}
@@ -28,6 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and product_name like #{str2}
  		</if>
 	</select>
+	
+	
 	
 	<!-- 서로다른 타입의 파라미터를 못받으므로 MyBatisDTO에 담아서 쿼리 -->
 	<select id="getCProductList" parameterType="com.snackking.model.MyBatisDTO" resultType="com.snackking.model.ProductDTO">

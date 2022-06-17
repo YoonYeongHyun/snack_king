@@ -37,4 +37,10 @@ public class CartServiceImpl implements CartService{
 		cartMapper.cartDeleteSe(cart);
 	}
 
+	@Override
+	public int cartConfirm(CartDTO cart) {
+		
+		return cartMapper.cartConfirm(cart);
+	}
+
 }

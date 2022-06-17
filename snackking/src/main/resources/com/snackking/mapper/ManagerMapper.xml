@@ -4,7 +4,7 @@
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	<mapper namespace="com.snackking.mapper.ManagerMapper">
   		<select id="managerLogin" parameterType="com.snackking.model.ManagerDTO" resultType="int">
-  			select count(*) from manager where managerId = #{managerId} and managerPwd = #{managerPwd}
+  			select count(*) from manager where manager_id = #{manager_id} and manager_pwd = #{manager_pwd}
   		</select>
   	
   		<select id="getProduct" parameterType="com.snackking.model.ProductDTO" resultType="com.snackking.model.ProductDTO">

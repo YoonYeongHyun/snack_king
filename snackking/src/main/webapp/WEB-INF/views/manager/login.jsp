@@ -53,10 +53,10 @@ document.addEventListener("DOMContentLoaded", function(){
 	<form action="/manager/login" method="post" name="managerLoginForm">
 		<div class="a_box">
 			<div class="b_box">
-				<img src="../resources/icons/login_id.png"><input type="text" name="managerId" id="managerId" placeholder="아이디">
+				<img src="../resources/icons/login_id.png"><input type="text" name="manager_id" id="managerId" placeholder="아이디">
 			</div>
 			<div class="b_box">
-				<img src="../resources/icons/login_pwd.png"><input type="password" name="managerPwd" id="managerPwd"  placeholder="비밀번호">
+				<img src="../resources/icons/login_pwd.png"><input type="password" name="manager_pwd" id="managerPwd"  placeholder="비밀번호">
 			</div>
 			<div class="c_box">
 				<input type="button" value="로그인" id="btn_login">

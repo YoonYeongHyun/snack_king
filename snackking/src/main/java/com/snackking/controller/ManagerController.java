@@ -37,13 +37,12 @@ public class ManagerController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(HttpServletRequest request, ManagerDTO manager, Model model, RedirectAttributes rttr) {
 		log.info("관리자 계정 로그인");
-		
 		HttpSession session = request.getSession();
 	    System.out.println(manager);
 		int cnt = managerService.managerLogin(manager);
 		log.info("cnt : " + cnt);
 		if(cnt==1) {
-			session.setAttribute("managerId", manager.getManagerId());
+			session.setAttribute("manager_id", manager.getManager_id());
 			return "redirect:/manager/productManagement";	
 			
 		} else { 
@@ -55,8 +54,8 @@ public class ManagerController {
 	@RequestMapping(value = "/productManagement", method = RequestMethod.GET)
 	public String managementPOST(HttpServletRequest request, Model model, RedirectAttributes rttr) {
 		HttpSession session = request.getSession();
-		String str = (String) session.getAttribute("managerId");
-		log.info( "님 상품 관리 진입");
+		String str = (String) session.getAttribute("manager_id");
+		log.info( "상품 관리 진입");
 		
 		
 		MyBatisDTO mybatis = new MyBatisDTO();
@@ -94,8 +93,8 @@ public class ManagerController {
 	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
 	public String productInsertGET(HttpServletRequest request, ProductDTO product, RedirectAttributes rttr) {
 		HttpSession session = request.getSession();
-		String str = (String) session.getAttribute("managerId");
-		log.info( "님 상품 등록 진입");
+		String str = (String) session.getAttribute("manager_id");
+		log.info( "상품 등록 진입");
 		
 		return "/manager/productInsert";		
 	}
@@ -177,7 +176,7 @@ public class ManagerController {
 	@RequestMapping(value = "productUpdate", method = RequestMethod.GET)
 	public String productUpdateGET(HttpServletRequest request, ProductDTO product, RedirectAttributes rttr, Model model) {
 		HttpSession session = request.getSession();
-		String str = (String) session.getAttribute("managerId");
+		String str = (String) session.getAttribute("manager_id");
 		log.info( "님 상품 수정 진입");
 		product = managerService.getProduct(product);
 		model.addAttribute("product", product);
@@ -189,7 +188,7 @@ public class ManagerController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutGET(HttpServletRequest request) {
 		if(!(session==null)) {
-			session.setAttribute("managerId", null);
+			session.setAttribute("manager_id", null);
 			session.setMaxInactiveInterval(0);
 			log.info("관리자 계정 로그아웃");
 		}

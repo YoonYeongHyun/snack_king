@@ -82,6 +82,20 @@ public class ProductServiceImpl implements ProductService{
 		return productMapper.getOrderMember(id);
 	}
 
+
+	@Override
+	public int getCProductCount_sp(ProductDTO product) {
+		
+		return getCProductCount_sp(product);
+	}
+
+
+	@Override
+	public List<ProductDTO> getCProductList_sp(ProductDTO product) {
+		
+		return productMapper.getCProductList_sp(product);
+	}
+
 	
 
 }

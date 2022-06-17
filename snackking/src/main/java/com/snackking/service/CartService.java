@@ -11,4 +11,5 @@ public interface CartService{
 	public void cartInsert(CartDTO cart); //카트 추가하기
 	public void cartUpdate(CartDTO cart);
 	public void cartDeleteSe(CartDTO cart);
+	public int cartConfirm(CartDTO cart);
 }

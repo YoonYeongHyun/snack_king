@@ -26,9 +26,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int memberLogin(MemberDTO member) {
-		
-		return memberMapper.memberLogin(member);
+	public int memberLogin_id(MemberDTO member) {	
+		return memberMapper.memberLogin_id(member);
+	}
+	
+	@Override
+	public int memberLogin_id_pwd(MemberDTO member) {	
+		return memberMapper.memberLogin_id_pwd(member);
 	}
 
 }

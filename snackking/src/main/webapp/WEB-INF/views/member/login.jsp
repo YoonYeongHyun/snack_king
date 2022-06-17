@@ -7,21 +7,20 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/member/login.css?after">
 </head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
     let form = document.LoginForm;
     let btn_login = document.getElementById("btn_login");
-    
+    /*
     btn_login.addEventListener("click", function(){
     
    		if(!form.id.value){
     		alert('아이디를 입력하시오!');
-    		form.id.focus();
     		return;
    		}
    		if(!form.pwd.value){
     		alert('비밀번호를 입력하시오!');
-    		form.pwd.focus();
     		return;
     	}
 
@@ -61,8 +60,44 @@ document.addEventListener("DOMContentLoaded", function(){
 			form.id.value = document.cookie.substring(idx, end);
 			form.chk.checked = true;	
 		}
-	}
+	}*/
 });
+
+
+$(document).ready(function(){
+	$('#btn_login').on("click", function(e){
+		
+		if(!$('#id').val()){
+    		alert('아이디를 입력하시오!');
+    		return;
+   		}
+   		if(!$('#pwd').val()){
+    		alert('비밀번호를 입력하시오!');
+    		return;
+    	}
+   		let id = $('#id').val();
+	    let pwd = $('#pwd').val();
+	    
+	    $.ajax({
+	        type:'post',
+	        url:'/member/login',
+	        data : {id : id, pwd : pwd},
+	        success:function(data){       	
+	        	if(data == "success"){
+	        		location="../main";
+	        	}else if(data == "error_id"){
+					alert("해당 회원정보를 찾을 수 없습니다.");	        		
+	        	}else if(data == "error_password"){
+	        		alert("아이디 또는 비밀번호를 확인하시길 바랍니다.");
+	        	}
+	        },
+	        error:function (data) {
+	           alert("오류가 발생하였습니다.");
+	        }
+	    })
+	})
+})
+
 </script>
 </head>
 <body>

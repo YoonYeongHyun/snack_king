@@ -151,28 +151,37 @@ $(document).ready(function(){
 		let id = '${memberId}';
 	    let product_id = '${product.product_id}';
 	    let product_amount = $('#purchase_amount').val();
-	    e.preventDefault()
-	    if(id==null){
+	    let result = "";
+	    if("${memberId}"==""){
 			alert("로그인 하세요");
-			location="/member/login";
-	    }else{
+			location="/member/login"
+	    } else {
 		    $.ajax({
 		        type:'post',
 		        async:false,
 		        url:'/cartInsert',
 		        dataType:'text',
-		        data:{product_id:product_id, product_amount:product_amount},
+		        data:{id:id,product_id:product_id, product_amount:product_amount},
 		        success:function(data) {
-		        	alert("장바구니에 담겼습니다.");
+		        	$('#cart_box').attr('class','cart_disabled')
+		        	$('#cart_3').val(1);
+		        	if(data=="success"){
+		        		alert("장바구니에 담겼습니다.");	
+		        	}else if(data=="fail"){
+		        		alert("이미 장바구니에있는 상품입니다.");
+		        	}
 		        },
 		        error:function (data) {
-		            alert("오류가 발생하였습니다.")
+		        	$('#cart_3').val() = 1;
+		        	alert("오류가 발생하였습니다.")       
 		        }
 		    })
-	   }
+	    }
+	})
+	$('#cart_cancel').on("click", function(e){
+		$('#cart_box').attr('class','cart_disabled')
 	})
 });
-
 //스크롤에따른 버튼색 변화
 window.addEventListener("scroll", (event) => { 
 	

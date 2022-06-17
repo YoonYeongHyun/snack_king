@@ -26,6 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and product_id = #{product_id} and id = #{id};
 	</delete>
 
-
+	<select id="cartConfirm" resultType="int">
+  		select count(*) from cart where 1 = 1
+  		and id like #{id} and product_id like #{product_id}
+	</select>
+	
 
 </mapper>

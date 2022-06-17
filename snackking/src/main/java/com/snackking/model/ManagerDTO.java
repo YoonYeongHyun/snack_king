@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ManagerDTO {
-	private String managerId;
-	private String managerPwd;
+	private String manager_id;
+	private String manager_pwd;
 }

@@ -42,16 +42,6 @@
 </style>
 </head>
 <body>
-<%
-	String managerId = (String) session.getAttribute("managerId");
-	if (managerId == null) { //세션이 null인 경우
-		%><script>alert('로그인 하세요'); location='../logon/managerLoginForm.jsp';</script><%
-	}
-	String category = request.getParameter("category");
-	String search = request.getParameter("search");
-	String pageNum = request.getParameter("pageNum");
-	if (pageNum == null) pageNum = "1";
-%>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	

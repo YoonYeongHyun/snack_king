@@ -11,4 +11,5 @@ public interface CartMapper {
 	public void cartInsert(CartDTO cart); //카트 추가하기
 	public void cartUpdate(CartDTO cart); //카트 수량 변경
 	public void cartDeleteSe(CartDTO cart); //선택된 카트 상품 삭제
+	public int cartConfirm(CartDTO cart); //카트에 있는지 확인
 }

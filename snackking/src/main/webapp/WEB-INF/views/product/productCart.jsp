@@ -189,14 +189,11 @@ $(document).ready(function(){
 		var data = {'message' : "message"};
 	    $.ajax({
 	        type:'post',
-	        async:false,
 	        url:'/cartNone',
-	        data : JSON.stringify(data),
-	        datatype: 'JSON',
-	        success:function(obj){       	
+	        success:function(data){       	
 	        	alert("성공 하였습니다.");
-	        	console.log(obj);
-	        	alert(obj);	        
+	        	console.log(data);
+	        	alert(data);	        
 	        },
 	        error:function (obj) {
 	           alert("실패 하였습니다.");

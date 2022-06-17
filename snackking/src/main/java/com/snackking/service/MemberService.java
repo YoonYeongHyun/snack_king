@@ -10,7 +10,8 @@ public interface MemberService {
 
 	public void memberJoin(MemberDTO member) throws Exception;
 	public int idCheck(String id) throws Exception;
-	
-	public int memberLogin(MemberDTO member);
+
+	public int memberLogin_id(MemberDTO member);
+	public int memberLogin_id_pwd(MemberDTO member);
     
 }

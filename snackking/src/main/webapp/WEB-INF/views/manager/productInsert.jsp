@@ -42,12 +42,6 @@
 	.form_btns input:hover {background:black; color:white;}
 </style>
 <script>
-	<%
-	String managerId = (String) session.getAttribute("managerId");
-	if (managerId == null) { //세션이 null인 경우
-		%>alert('로그인 하십시오.'); location='../logon/managerLoginForm.jsp';<%
-	}
-	%>
 	document.addEventListener("DOMContentLoaded", function(){
 		let form = document.registerForm;
 		let btn_register = document.getElementById("btn_register");

@@ -137,7 +137,6 @@ $(document).ready(function(){
 	    let product_id = $('#cart_2').val();
 	    let product_amount = $('#cart_3').val();
 	    let result = "";
-	    e.preventDefault()
 	    if("${memberId}"==""){
 			alert("로그인 하세요");
 			location="/member/login"
@@ -147,12 +146,15 @@ $(document).ready(function(){
 		        async:false,
 		        url:'/cartInsert',
 		        dataType:'text',
-		        async: false,
 		        data:{id:id,product_id:product_id, product_amount:product_amount},
 		        success:function(data) {
 		        	$('#cart_box').attr('class','cart_disabled')
 		        	$('#cart_3').val(1);
-		        	alert("장바구니에 담겼습니다.");
+		        	if(data=="success"){
+		        		alert("장바구니에 담겼습니다.");	
+		        	}else if(data=="fail"){
+		        		alert("이미 장바구니에있는 상품입니다.");
+		        	}
 		        },
 		        error:function (data) {
 		        	$('#cart_3').val() = 1;

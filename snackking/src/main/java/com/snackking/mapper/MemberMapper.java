@@ -9,5 +9,6 @@ public interface MemberMapper {
 	public void memberJoin(MemberDTO member);
 	public int idCheck(String id);
 
-	public int memberLogin(MemberDTO member);
+	public int memberLogin_id(MemberDTO member);
+	public int memberLogin_id_pwd(MemberDTO member);
 }

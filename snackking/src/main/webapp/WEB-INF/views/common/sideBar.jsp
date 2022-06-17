@@ -28,6 +28,6 @@ li{float: left;}
 </aside>
 
 <aside class=side_bar id="sb2">
-	<div class="arrow" id="arrow-up" onclick="window.scrollTo(0,0)" ><img width="32px"  src="resources/icons/up-arrow.png"></div>
+	<div class="arrow" id="arrow-up" onclick="window.scrollTo(0,0)" ><img width="32px"  src="../resources/icons/up-arrow.png"></div>
 </aside>
 </html>

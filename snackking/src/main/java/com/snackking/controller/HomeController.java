@@ -52,9 +52,6 @@ public class HomeController {
 		} else {
 			model.addAttribute("memberId", session.getAttribute("memberId"));
 		}
-		
-		
 		return "manager/login"; 
 	}
-	
 }
