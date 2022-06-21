@@ -1,5 +1,6 @@
 package com.snackking.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.snackking.model.BuyDTO;
@@ -206,8 +205,12 @@ public class ProductController {
 		String total_order_price = request.getParameter("total_order_price");
 		List<ProductDTO> product_list = new ArrayList<ProductDTO>();
 		
-		
-		
+		java.util.Date now = new java.util.Date();
+	    SimpleDateFormat nowdate = new SimpleDateFormat("yyMMddHH");
+	    String pre_id = nowdate.format(now);
+	    int random = (int)(Math.random()*1000);
+	    String sub_id = Integer.toString(random);
+	    log.info(pre_id);
 		for(int product_id : product_id_list) {
 			ProductDTO product = productService.getProduct(product_id);
 			product_list.add(product);
@@ -217,6 +220,7 @@ public class ProductController {
 		for(ProductDTO product : product_list) {
 			int product_amount = product_amount_list.get(cnt);
 			int product_price = product.getProduct_sale_price();
+			buy.setBuy_id(pre_id+sub_id);
 			buy.setId(id);
 			buy.setProduct_name(product.getProduct_name());
 			buy.setProduct_image(product.getProduct_image());

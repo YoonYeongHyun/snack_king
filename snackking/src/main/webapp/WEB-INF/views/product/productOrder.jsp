@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let delivery_addr2 = document.getElementById("delivery_addr2").value;
     final_order_btn.addEventListener("click", function(){
     	if(final_order_chk.checked){
-    		Recipient_addr.value = delivery_addrNum + " " + delivery_addr1 + " " + delivery_addr2;
+    		Recipient_addr.value ="[" + delivery_addrNum + "] " + delivery_addr1 + " " + delivery_addr2;
     		
     		
     		document.forms[0].submit();
@@ -239,7 +239,13 @@ window.addEventListener("scroll", (event) => {
 			<h2>결제수단 선택 / 결제 </h2>
 			<table>
 				<th>결제수단</th>
-				<td></td>
+				<td>
+					 <input type="radio" value="신용카드" name="buy_info" id="radio1" checked> <label for="radio1">신용카드</label>
+					 <input type="radio" value="무통장입금" name="buy_info" id="radio2"> <label for="radio2">무통장입금</label>
+					 <input type="radio" value="계좌이체" name="buy_info" id="radio3"> <label for="radio3">계좌이체</label>
+					 <input type="radio" value="네이버페이" name="buy_info" id="radio4"> <label for="radio4">네이버페이</label>
+					 <input type="radio" value="휴대폰결제" name="buy_info" id="radio5"> <label for="radio5">휴대폰결제</label>
+				</td>
 			</table>
 		</div>
 	</form>

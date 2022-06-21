@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BuyDTO {
-	 	int buy_id;
+	 	String buy_id;
 	    int product_id;
 	    String id;
 	    String product_name;
