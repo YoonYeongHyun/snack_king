@@ -117,6 +117,6 @@ public class MemberController {
 		String id = (String) session.getAttribute("memberId");
 		log.info(id + "님 마이 페이지 진입");
 		
-		return "myPage";
+		return "/member/myPage";
 	}
 }

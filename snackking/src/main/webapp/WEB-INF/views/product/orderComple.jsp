@@ -79,7 +79,7 @@ window.addEventListener("scroll", (event) => {
 				<table id="order_result_table">
 					<tr> 
 						<th width="30%">주문번호</th>
-						<td><a href="@"></a></td>
+						<td><a href="@">${buy.buy_id}</a></td>
 					</tr>
 					<tr> 
 						<th>배송정보</th>
@@ -90,7 +90,7 @@ window.addEventListener("scroll", (event) => {
 					</tr>
 					<tr> 
 						<th>결제수단</th>
-						<td><a href="@"></a></td>
+						<td>${buy.buy_info}</a></td>
 					</tr>
 				</table>
 				

@@ -2,6 +2,7 @@ package com.snackking.service;
 
 import java.util.List;
 
+import com.snackking.model.BuyDTO;
 import com.snackking.model.CartDTO;
 import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
@@ -27,5 +28,6 @@ public interface ProductService {
 	
 	public MemberDTO getOrderMember(String id);
 	
+	public void insertOrder(BuyDTO buy);
 
 }

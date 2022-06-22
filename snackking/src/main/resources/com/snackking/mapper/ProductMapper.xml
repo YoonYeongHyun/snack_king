@@ -77,10 +77,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit #{int2}, 10;
 	</select>
 
-	
 	<select id="getOrderMember" resultType="com.snackking.model.MemberDTO">
 		select * from member where 1=1
 		and id = #{id}
-			
 	</select>
+	
+	<insert id="insertOrder">
+		insert into buy(buy_id, product_id, id, product_name, product_image, buy_amount, buy_price, buy_info, buyer, buyer_tel, buyer_addr, buyer_email, recipient, recipient_addr, recipient_tel) 
+		values(#{buy_id}, #{product_id}, #{id}, #{product_name}, #{product_image}, #{buy_amount}, #{buy_price}, #{buy_info}, #{buyer}, #{buyer_tel}, #{buyer_addr}, #{buyer_email}, #{recipient}, #{recipient_addr}, #{recipient_tel});		
+	</insert>
+	
 </mapper>

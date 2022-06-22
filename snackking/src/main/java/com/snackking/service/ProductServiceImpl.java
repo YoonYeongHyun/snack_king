@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.snackking.mapper.ProductMapper;
+import com.snackking.model.BuyDTO;
 import com.snackking.model.CartDTO;
 import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
@@ -94,6 +95,12 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getCProductList_sp(ProductDTO product) {
 		
 		return productMapper.getCProductList_sp(product);
+	}
+
+
+	@Override
+	public void insertOrder(BuyDTO buy) {
+		productMapper.insertOrder(buy);
 	}
 
 	

@@ -17,7 +17,7 @@ public class BuyDTO {
 		String buyer_tel;
 		String buyer_addr;
 		String buyer_email;
-		String Recipient;
-		String Recipient_addr;
-		String Recipient_tel;
+		String recipient;
+		String recipient_addr;
+		String recipient_tel;
 }

@@ -79,13 +79,13 @@ document.addEventListener("DOMContentLoaded", function(){
 	});
 	let final_order_btn = document.getElementById("final_order_btn");
     let final_order_chk = document.getElementById("final_order_chk");
-    let Recipient_addr = document.getElementById("Recipient_addr");
+    let recipient_addr = document.getElementById("recipient_addr");
     let delivery_addrNum = document.getElementById("delivery_addrNum").value;
     let delivery_addr1 = document.getElementById("delivery_addr1").value;
     let delivery_addr2 = document.getElementById("delivery_addr2").value;
     final_order_btn.addEventListener("click", function(){
     	if(final_order_chk.checked){
-    		Recipient_addr.value ="[" + delivery_addrNum + "] " + delivery_addr1 + " " + delivery_addr2;
+    		recipient_addr.value ="[" + delivery_addrNum + "] " + delivery_addr1 + " " + delivery_addr2;
     		
     		
     		document.forms[0].submit();
@@ -212,7 +212,7 @@ window.addEventListener("scroll", (event) => {
 			<table id="delivery_table">
 				<tr>
 					<th width="30%">이름&nbsp;<img src="../resources/icons/check.png" width="16px"></th>
-					<td width="70%"><input type="text" value="${member.name}" name="Recipient"></td>
+					<td width="70%"><input type="text" value="${member.name}" name="recipient"></td>
 				</tr>
 				<tr>
 					<th id="delivery_th" height="122px">주소&nbsp;<img src="../resources/icons/check.png" width="16px" style="vertical-align: top;"></th>
@@ -221,16 +221,16 @@ window.addEventListener("scroll", (event) => {
 						<input type="button" id="addr_btn" value="주소찾기"> <br>
 						<input type="text" id="delivery_addr1" value="${member.addr1}"> <br>
 						<input type="text" id="delivery_addr2" value="${member.addr2}">
-						<input type="hidden" value="" name="Recipient_addr" id="Recipient_addr">
+						<input type="hidden" value="" name="recipient_addr" id="recipient_addr">
 						<input type="hidden" value="${total_product_price}" name="total_product_price">
 						<input type="hidden" value="${delivery_fee}" name="delivery_fee">
 						<input type="hidden" value="${total_order_price}" name="total_order_price">
 					</td>
 				</tr>
 				<tr>
-					<th>휴대폰 번호&nbsp;<img src="../resources/icons/check.png" width="16px" name="Recipient_tel"></th>
+					<th>휴대폰 번호&nbsp;<img src="../resources/icons/check.png" width="16px"></th>
 					<td>
-						<input type="text" value="${member.tel}" name="Recipient_tel">
+						<input type="text" value="${member.tel}" name="recipient_tel">
 					</td>
 				</tr>
 			</table>

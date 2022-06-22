@@ -2,6 +2,7 @@ package com.snackking.mapper;
 
 import java.util.List;
 
+import com.snackking.model.BuyDTO;
 import com.snackking.model.CartDTO;
 import com.snackking.model.MemberDTO;
 import com.snackking.model.MyBatisDTO;
@@ -23,6 +24,9 @@ public interface ProductMapper {
 
 	public int getCProductCount_sp(ProductDTO product);
 	public List<ProductDTO> getCProductList_sp(ProductDTO product);
+
+	public void insertOrder(BuyDTO buy);
+	
 	
 	
 
