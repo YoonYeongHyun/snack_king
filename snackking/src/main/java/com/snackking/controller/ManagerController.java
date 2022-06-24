@@ -2,8 +2,9 @@ package com.snackking.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.logging.SimpleFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,10 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -182,6 +183,13 @@ public class ManagerController {
 		model.addAttribute("product", product);
 		
 		return "/manager/productUpdate";	
+	}
+	
+	@ResponseBody	
+	@RequestMapping(value = "productDelete", method = RequestMethod.POST)
+	public void productDelete( @RequestParam(value="product_id") int product_id, ProductDTO product) {
+		product.setProduct_id(product_id);
+		managerService.deleteProduct(product);	
 	}
 	
 

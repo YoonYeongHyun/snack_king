@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	#container{width:1200px; height: 1000px}
+</style>
 <jsp:include page="../common/header.jsp">
 		<jsp:param name="memberId" value="${memberId}"/>
 </jsp:include>
@@ -16,7 +19,9 @@
 		<jsp:param name="memberId" value="${memberId}"/>
 </jsp:include>
 <body>
-
+	<div id="container">
+	
+	</div>
 </body>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </html>

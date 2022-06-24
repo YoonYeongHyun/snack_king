@@ -14,6 +14,7 @@ public interface ManagerMapper {
 	public void insertProduct(ProductDTO product);
 	public ProductDTO getProduct(ProductDTO product);
 	public void updateProduct(ProductDTO product);
+	public void deleteProduct(ProductDTO product);
 	
 	
 	public List<ProductDTO> getMProductList(int start);

@@ -44,4 +44,8 @@
 			and product_name like #{str2}
  		</if>
 		</select>
+		
+		<delete id="deleteProduct">
+			delete from product where product_id = #{product_id}
+		</delete>
   	</mapper>

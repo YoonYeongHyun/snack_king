@@ -82,6 +82,12 @@ public class ManagerServiceImpl implements ManagerService {
 		return managerMapper.getMCProductCount(mybatis);
 	}
 
+	@Override
+	public void deleteProduct(ProductDTO product) {
+		managerMapper.deleteProduct(product);
+		
+	}
+
 
 
 

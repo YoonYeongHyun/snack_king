@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <style>
@@ -71,15 +73,26 @@ document.addEventListener("DOMContentLoaded", function(){
 	let delete_btns = document.getElementsByName("delete_btn");
 	
 	delete_btns.forEach(element => element.addEventListener("click", function(e){
+		let product_id = e.target.previousElementSibling.previousElementSibling.value;
+		console.log(product_id);
 		if(confirm("정말 삭제하시겠습니까?")){
-			let l_num = e.target.previousSibling.previousSibling.previousSibling.previousSibling.value;
-			window.open('productDeletePro.jsp?product_id='+l_num, "", "width = 500, height = 200 left = 740");
+			$.ajax({
+				type : 'post',
+				async : false,
+				url : '/manager/productDelete',
+				data : {product_id:product_id},
+				success:function(data) {
+					alert("상품이 삭제되었습니다.")
+			    },
+				error:function (data) {
+				   	alert("오류가 발생하였습니다.")       
+				}
+			})
 			setTimeout(function(){
 				location.reload();
-			},500);
+			},200);
 		}
-	}));
-
+	}))
 	update_btns.forEach(element => element.addEventListener("click", function(e){
 		let l_num = e.target.previousSibling.previousSibling.value;
 		location="productUpdate?product_id="+ l_num

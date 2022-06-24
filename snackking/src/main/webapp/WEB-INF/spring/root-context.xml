@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
@@ -15,9 +16,18 @@
 		<property name="password" value="1234"></property>
 	</bean>
 
-	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
+	<!-- @Transactional 애노테이션을 sacn하기 위한 설정 -->
+
+	<!-- 트랜젝션 매니저
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven/>
+ -->
 
 	<!-- 다중 업로드 & Multipart객체를 컨트롤러에 전달함 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -25,7 +35,7 @@
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="datasource"></property>
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>	
 
 	<mybatis-spring:scan base-package="com.snackking.mapper"/> <!-- 쿼리문을실행하기위한 인터페이스 설정 -->

@@ -210,7 +210,6 @@ public class ProductController {
 	    String pre_id = nowdate.format(now);
 	    int random = (int)(Math.random()*1000);
 	    String sub_id = Integer.toString(random);
-	    log.info(pre_id);
 		for(int product_id : product_id_list) {
 			ProductDTO product = productService.getProduct(product_id);
 			product_list.add(product);

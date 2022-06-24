@@ -13,9 +13,8 @@ import com.snackking.model.ProductDTO;
 public interface ManagerService {
 
 	public int managerLogin(ManagerDTO manager);
-	
 	public void insertProduct(ProductDTO product);
-	
+	public void deleteProduct(ProductDTO product);
 	public ProductDTO getProduct(ProductDTO product);
 	
 	public List<ProductDTO> getMProductList(int start);
