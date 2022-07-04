@@ -183,23 +183,6 @@ $(document).ready(function(){
 	        }
 	    })
 	})
-	
-	
-	$('#none_btn').on("click", function(e){
-		var data = {'message' : "message"};
-	    $.ajax({
-	        type:'post',
-	        url:'/cartNone',
-	        success:function(data){       	
-	        	alert("성공 하였습니다.");
-	        	console.log(data);
-	        	alert(data);	        
-	        },
-	        error:function (obj) {
-	           alert("실패 하였습니다.");
-	        }
-	    })
-	})
 })
 </script>
 <jsp:include page="../common/header.jsp">
@@ -275,7 +258,6 @@ $(document).ready(function(){
 	<c:if test="${cart_cnt ne 0}">
 		<div id="delete_btns">
 			<button id=delete_btn>선택 상품 삭제</button>
-			<button id=none_btn>버튼</button>
 		</div>
 	</c:if>
 	<div id="order_info">

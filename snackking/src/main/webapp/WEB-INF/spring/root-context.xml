@@ -39,6 +39,7 @@
 	</bean>	
 
 	<mybatis-spring:scan base-package="com.snackking.mapper"/> <!-- 쿼리문을실행하기위한 인터페이스 설정 -->
+	
 	<context:component-scan base-package="com.snackking.model"></context:component-scan>
 	<context:component-scan base-package="com.snackking.service"></context:component-scan>
 </beans>

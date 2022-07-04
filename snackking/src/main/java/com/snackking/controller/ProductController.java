@@ -227,6 +227,7 @@ public class ProductController {
 			buy.setBuy_amount(product_amount);
 			buy.setBuy_price(product_amount * product_price); 
 			productService.insertOrder(buy);
+			cnt++;
 			log.info(buy);
 		}
 		
