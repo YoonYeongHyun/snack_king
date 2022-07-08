@@ -20,4 +20,7 @@ public class BuyDTO {
 		String recipient;
 		String recipient_addr;
 		String recipient_tel;
+		
+
+	    int product_qty;
 }

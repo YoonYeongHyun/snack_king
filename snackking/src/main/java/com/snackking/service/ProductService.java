@@ -11,23 +11,21 @@ import com.snackking.model.ReviewDTO;
 
 public interface ProductService {
 	
+	//리스트관련
 	public List<ProductDTO> getMainProductList(String str);
-	
-	
-	public ProductDTO getProduct(int product_id); //상품 1건 검색
-	
-	public int getCProductCount(MyBatisDTO mybatis);  //카테고리별 상품 개수 확인 (페이징 처리에 사용)
-	public List<ProductDTO> getCProductList(MyBatisDTO mybatis); //카테고리별 리스트 검색(Mybatis 사용상 DTO로 매개변수 한번에 받아 사용)
-
+	public int getCProductCount(ProductDTO product);  //카테고리별 상품 개수 확인 
+	public List<ProductDTO> getCProductList(ProductDTO product); //카테고리별 리스트 검색
 	public int getCProductCount_sp(ProductDTO product);
 	public List<ProductDTO> getCProductList_sp(ProductDTO product);
-
+	
+	//리뷰관련
 	public int getProductReviewCount(int product_id);  //상품별 리뷰 개수 확인 (페이징 처리에 사용)
 	public List<ReviewDTO> getProductReviewList(MyBatisDTO mybatis);  //상품별 리뷰리스트 받기 (페이징 처리에 사용)
-
 	
-	public MemberDTO getOrderMember(String id);
+	//상품내용 관련
+	public ProductDTO getProduct(int product_id); //상품 조회
 	
-	public void insertOrder(BuyDTO buy);
-
+	//주문관련
+	public MemberDTO getOrderMember(String id);	
+	public void productOrder(BuyDTO buy, List<Integer> product_id_list, List<Integer> product_amount_list, List<Integer> product_price_list, String id);
 }

@@ -95,7 +95,7 @@ window.addEventListener("scroll", (event) => {
 				</table>
 				
 			<div class="btns">
-				<input type="button" value="쇼핑 계속하기" id="shopping_btn">
+				<input type="button" value="쇼핑 계속하기" id="shopping_btn">&emsp;&emsp;
 				<input type="button" value="주문 상세보기" id="confirm_btn"> 
 			</div>
 			</div>

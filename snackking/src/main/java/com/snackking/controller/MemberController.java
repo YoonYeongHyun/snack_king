@@ -40,16 +40,14 @@ public class MemberController {
 		log.info("회원가입 시작");
 		memberService.memberJoin(member);
 		
-		log.info("회원가입 성공");
 		return "redirect:/main";
 	}
 	
 	@RequestMapping(value="/memberIdChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberIdChkPOST(String id) throws Exception{
-		log.info("아이디 중복확인 진입");
-		System.out.println("----------------------------");
-		System.out.println(id);
+		log.info("아이디 중복확인 실행");
+		
 		int result = memberService.idCheck(id);
 		if(result != 0) {
 			return "No";	// 중복 아이디가 존재

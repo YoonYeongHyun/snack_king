@@ -16,10 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	
-	<insert id="cartUpdate" parameterType="com.snackking.model.CartDTO">
+	<update id="cartUpdate" parameterType="com.snackking.model.CartDTO">
 		update cart set product_amount = #{product_amount} where 1 = 1 
 		and id = #{id} and product_id = #{product_id};
-	</insert>
+	</update>
 	
 	<delete id="cartDeleteSe" parameterType="com.snackking.model.CartDTO">
 		delete from cart where 1=1

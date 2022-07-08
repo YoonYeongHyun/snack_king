@@ -139,8 +139,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	<div id="lower_header">
 		<nav class="inner_contents" id="header_nav">
 	        <ul>
-    	        <li><a href="/productList?subject=1">인기상품</a></li>
-                <li><a href="/productList?subject=1">특가상품</a></li>
+    	        <li><a href="/productList?category=7">인기상품</a></li>
+                <li><a href="/productList?category=8">특가상품</a></li>
                 <li><a href="/productList?category=5">세트상품</a></li>
                 <li name="showing_btn">
         	      	<a href="/productList?category=1">과자</a>
