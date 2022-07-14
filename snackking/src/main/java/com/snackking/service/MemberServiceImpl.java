@@ -1,11 +1,12 @@
 package com.snackking.service;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.snackking.mapper.MemberMapper;
+import com.snackking.model.BuyDTO;
 import com.snackking.model.MemberDTO;
 
 @Service
@@ -33,6 +34,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int memberLogin_id_pwd(MemberDTO member) {	
 		return memberMapper.memberLogin_id_pwd(member);
+	}
+
+	@Override
+	public MemberDTO getMemberInfo(String id) {
+
+		return memberMapper.getMemberInfo(id);
+	}
+	
+	@Override
+	public List<BuyDTO> getBuyInfo_mypageMain(String id) {
+		return memberMapper.getBuyInfo_mypageMain(id);
 	}
 
 }

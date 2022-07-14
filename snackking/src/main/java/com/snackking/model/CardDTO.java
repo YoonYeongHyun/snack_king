@@ -4,9 +4,8 @@ import lombok.Data;
 
 @Data
 public class CardDTO {
-	String card_no;
-	String card_com;
-	String card_id;
-	String card_name;
-	
+	private String card_no;
+	private String card_com;
+	private String card_id;
+	private String card_name;
 }

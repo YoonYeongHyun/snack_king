@@ -1,6 +1,7 @@
 package com.snackking.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,14 +9,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.snackking.model.CartDTO;
+import com.snackking.model.BuyDTO;
 import com.snackking.model.MemberDTO;
+import com.snackking.model.ProductDTO;
 import com.snackking.service.MemberService;
 
 import lombok.extern.log4j.Log4j2;
@@ -110,11 +112,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
-	public String myPageGET(HttpServletRequest request) {
+	public String myPageGET(HttpServletRequest request, Model model, MemberDTO member) {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("memberId");
 		log.info(id + "님 마이 페이지 진입");
+		member = memberService.getMemberInfo(id);
+		List<BuyDTO> buy_list = memberService.getBuyInfo_mypageMain(id);
+		log.info(member);
+		log.info(buy_list);
 		
+		model.addAttribute("member", member);
+		model.addAttribute("buy_list", buy_list);
 		return "/member/myPage";
 	}
 }

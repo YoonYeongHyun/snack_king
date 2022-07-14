@@ -19,4 +19,13 @@
   		<select id="memberLogin_id_pwd" parameterType="com.snackking.model.MemberDTO" resultType="int">
   			select count(*) from member where id = #{id} and pwd = #{pwd}
   		</select>
+  		
+  		<select id="getMemberInfo" resultType="com.snackking.model.MemberDTO">
+  			select * from member where id = #{id}
+  		</select>
+  		
+  		<select id="getBuyInfo_mypageMain" resultType="com.snackking.model.BuyDTO">
+  			select * from buy where id = #{id} order by buy_date desc limit 5
+  		</select>
+  		
 	</mapper>
