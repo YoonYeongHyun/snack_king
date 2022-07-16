@@ -1,10 +1,10 @@
 package com.snackking.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.snackking.model.BuyDTO;
 import com.snackking.model.MemberDTO;
-import com.snackking.model.ProductDTO;
 import com.snackking.service.MemberService;
 
 import lombok.extern.log4j.Log4j2;
@@ -125,4 +124,33 @@ public class MemberController {
 		model.addAttribute("buy_list", buy_list);
 		return "/member/myPage";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/memberUpdate", produces = "application/text; charset=UTF-8")
+	public String memberUpdate(HttpServletRequest request, @RequestParam(value="id") String id, @RequestParam(value="change_info1") String change_info1, 
+			@RequestParam(value="change_info2") String change_info2) {
+		log.info("회원정보수정");
+		
+		if(change_info1.equals("password")) {
+			return "비밀번호가 변경되었습니다.";
+		}else {
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		return change_info2;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

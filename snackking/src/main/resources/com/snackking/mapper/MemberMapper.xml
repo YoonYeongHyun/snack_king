@@ -25,7 +25,9 @@
   		</select>
   		
   		<select id="getBuyInfo_mypageMain" resultType="com.snackking.model.BuyDTO">
-  			select * from buy where id = #{id} order by buy_date desc limit 5
+  			select * from buy where id = #{id} and
+  			buy_date between DATE_ADD(NOW(), INTERVAL -2 week ) AND NOW()
+  			order by buy_date desc
   		</select>
   		
 	</mapper>

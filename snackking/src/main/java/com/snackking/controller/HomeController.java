@@ -26,20 +26,9 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest requset){ 
-		log.info("메인 페이지 진입");
-		session = requset.getSession();
-		if(session.getAttribute("memberId") == null) {
-			model.addAttribute("memberId", "");
-		} else {
-			model.addAttribute("memberId", session.getAttribute("memberId"));
-		}
 		
-		List<ProductDTO> list1 = productService.getMainProductList("1");
-		List<ProductDTO> list2 = productService.getMainProductList("2");
-		model.addAttribute("list1", list1);
-		model.addAttribute("list2", list2);
-			
-		return "/main"; 
+		log.info("snackking 실행");
+		return "redirect:main"; 
 	}
 	
 	

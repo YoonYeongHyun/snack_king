@@ -95,7 +95,7 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/cartNone")
-	public 	String cartNone() {
+	public String cartNone() {
 		log.info("테스트1 진입");
 		return "Oh Yeah";
 	}

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/member/login.css?after">
+<link rel="stylesheet" href="/resources/css/member/login.css">
 </head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
