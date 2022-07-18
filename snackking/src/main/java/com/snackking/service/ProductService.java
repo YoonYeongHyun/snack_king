@@ -28,4 +28,5 @@ public interface ProductService {
 	//주문관련
 	public MemberDTO getOrderMember(String id);	
 	public void productOrder(BuyDTO buy, List<Integer> product_id_list, List<Integer> product_amount_list, List<Integer> product_price_list, String id);
+	
 }

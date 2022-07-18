@@ -15,4 +15,8 @@ public interface MemberMapper {
 	
 	public MemberDTO getMemberInfo(String id);
 	public List<BuyDTO> getBuyInfo_mypageMain(String id);
+	
+	public int confirmPassword(MemberDTO member);
+	public void updateMemberInfo(MemberDTO member);
+	
 }

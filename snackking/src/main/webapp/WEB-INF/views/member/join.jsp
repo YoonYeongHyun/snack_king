@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function(){
     		success : function(result){
     			if(result == 'No'){
     				chk_id.innerText = "중복된 아이디입니다.";
-    				chk_id.style.color = "red";		
+    				chk_id.style.color = "red";
     				isChk = false;
     			} else {
     				chk_id.innerText = "사용 가능한 아이디입니다.";

@@ -127,23 +127,28 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/memberUpdate", produces = "application/text; charset=UTF-8")
-	public String memberUpdate(HttpServletRequest request, @RequestParam(value="id") String id, @RequestParam(value="change_info1") String change_info1, 
-			@RequestParam(value="change_info2") String change_info2) {
+	public String memberUpdate(HttpServletRequest request, MemberDTO member) {
 		log.info("회원정보수정");
+		log.info(member);
 		
-		if(change_info1.equals("password")) {
-			return "비밀번호가 변경되었습니다.";
-		}else {
-			
+		if(member.getChange_info1().equals("password")) {
+			if(memberService.confirmPassword(member)==1) {
+				memberService.updateMemberInfo(member);
+				return "비밀번호가 변경되었습니다.";
+			}else {
+				return "비밀번호가 틀렸습니다.";
+			}
+		}else if(member.getChange_info1().equals("name")){
+			memberService.updateMemberInfo(member);
+			return "이름이 변경되었습니다,";
+		}else if(member.getChange_info1().equals("email")){
+			memberService.updateMemberInfo(member);
+			return "이메일이 변경되었습니다.";
+		}else if(member.getChange_info1().equals("tel")){
+			memberService.updateMemberInfo(member);
+			return "연락처가 변경되었습니다.";
 		}
-		
-		
-		
-		
-		
-		
-		
-		return change_info2;
+		return "잘못된 접근입니다.";
 	}
 	
 	

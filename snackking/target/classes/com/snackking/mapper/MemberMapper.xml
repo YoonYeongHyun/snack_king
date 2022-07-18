@@ -30,4 +30,25 @@
   			order by buy_date desc
   		</select>
   		
+  		<select id="confirmPassword" resultType="int">
+  			select count(id) from member where 1=1
+  			and id = #{id} and pwd = #{pwd}
+  		</select>
+  		<update id="updateMemberInfo">
+  			update member 
+  			<if test='change_info1.equals("password")'>
+				set pwd = #{change_info2} 	
+	 		</if>
+	 		<if test='change_info1.equals("name")'>
+				set name = #{change_info2} 	
+	 		</if>
+	 		<if test='change_info1.equals("email")'>
+				set email = #{change_info2} 	
+	 		</if>
+	 		<if test='change_info1.equals("tel")'>
+				set tel = #{change_info2} 	
+	 		</if>
+  			where 1 = 1 
+			and id = #{id};
+  		</update>
 	</mapper>

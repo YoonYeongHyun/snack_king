@@ -47,4 +47,15 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.getBuyInfo_mypageMain(id);
 	}
 
+	@Override
+	public int confirmPassword(MemberDTO member) {
+
+		return memberMapper.confirmPassword(member);
+	}
+
+	@Override
+	public void updateMemberInfo(MemberDTO member) {
+		memberMapper.updateMemberInfo(member);
+	}
+
 }

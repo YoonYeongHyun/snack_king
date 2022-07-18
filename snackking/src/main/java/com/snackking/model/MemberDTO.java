@@ -14,5 +14,8 @@ public class MemberDTO {
 	private String addr1;
 	private String addr2;
 	private Timestamp regDate;
+
+	private String change_info1;
+	private String change_info2;
 		
 }

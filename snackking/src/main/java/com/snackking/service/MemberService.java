@@ -15,4 +15,8 @@ public interface MemberService {
     
 	public MemberDTO getMemberInfo(String id);
 	public List<BuyDTO> getBuyInfo_mypageMain(String id);
+
+	//회원정보 수정 관련
+	public int confirmPassword(MemberDTO member);
+	public void updateMemberInfo(MemberDTO member);
 }
