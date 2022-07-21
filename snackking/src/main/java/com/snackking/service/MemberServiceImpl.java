@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.snackking.mapper.MemberMapper;
 import com.snackking.model.BuyDTO;
 import com.snackking.model.MemberDTO;
+import com.snackking.model.ReviewDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -37,14 +38,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberDTO getMemberInfo(String id) {
+	public MemberDTO getMemberInfo(MemberDTO member) {
 
-		return memberMapper.getMemberInfo(id);
+		return memberMapper.getMemberInfo(member);
 	}
 	
 	@Override
-	public List<BuyDTO> getBuyInfo_mypageMain(String id) {
-		return memberMapper.getBuyInfo_mypageMain(id);
+	public List<BuyDTO> getBuyInfo_mypageMain(MemberDTO member) {
+		return memberMapper.getBuyInfo_mypageMain(member);
 	}
 
 	@Override
@@ -56,6 +57,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateMemberInfo(MemberDTO member) {
 		memberMapper.updateMemberInfo(member);
+	}
+
+	@Override
+	public List<ReviewDTO> getReviewList(ReviewDTO review) {
+		
+		return memberMapper.getReviewList(review);
 	}
 
 }

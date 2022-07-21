@@ -14,4 +14,6 @@ public class ReviewDTO {
 	private String re_rate;
 	private int product_id;
 	private int readCount;
+	
+	private String dateType;
 }

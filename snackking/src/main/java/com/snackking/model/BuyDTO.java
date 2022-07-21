@@ -12,6 +12,7 @@ public class BuyDTO {
 	private String product_name;
 	private String product_image;
 	private int buy_amount;
+	private int buy_bundles;
 	private int buy_price;
 	private Timestamp buy_date;
 	private String buy_info;
@@ -22,7 +23,7 @@ public class BuyDTO {
 	private String recipient;
 	private String recipient_addr;
 	private String recipient_tel;
-		
+	private String review_com;
 
 	private int product_qty;
 }

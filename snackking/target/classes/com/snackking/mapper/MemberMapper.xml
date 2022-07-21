@@ -34,6 +34,7 @@
   			select count(id) from member where 1=1
   			and id = #{id} and pwd = #{pwd}
   		</select>
+  		
   		<update id="updateMemberInfo">
   			update member 
   			<if test='change_info1.equals("password")'>
@@ -51,4 +52,12 @@
   			where 1 = 1 
 			and id = #{id};
   		</update>
+  		
+  		<select id="getReviewList" resultType="com.snackking.model.ReviewDTO">
+  			select * from review where id = #{id} and
+  			<if test='dateType.equals("1weeks")'>
+				re_regDate between DATE_ADD(NOW(), INTERVAL -1 week ) AND NOW()
+	 		</if>
+  			 order by re_regDate desc
+  		</select>
 	</mapper>

@@ -26,6 +26,10 @@
 	.hide_button{margin: 10px 20px;}
 	.hide{display: none;}
 	.appear{display: block;}
+	
+	
+	.review_list{width: 100%; height: auto; margin:70px 0;}
+	.review_list table th{border-top: 1px solid #444; border-bottom: 1px solid #aaa; padding: 10px; font-size: 0.9em}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -193,14 +197,19 @@ document.addEventListener("DOMContentLoaded", function(){
 				<tr>
 					<th width="18%">주문번호/날짜</th> <th width="12%"></th> <th width="45%">상품명</th> <th width="15%">상품금액/수량</th><th width="10%">확인/리뷰</th>  
 				</tr>
+				<c:set var="exbuy_id" value="0"></c:set>
 				<c:forEach var="buy" items="${buy_list}" varStatus="status">
-				<tr>
-					<td style="text-align: center;">
+				<tr style="border-bottom: 1px solid #eee;">
+				<c:if test="${exbuy_id ne buy.buy_id}">
+					<td style="text-align: center; border-right: 1px solid #eee;" rowspan="${buy.buy_bundles}">
 						<span style="font-size: 0.9em; color:#888;"><fmt:formatDate value="${buy.buy_date}" pattern="yyyy/MM/dd"/></span> <br>
 						<a style="color:#289aff; font-weight: bold; text-decoration:underline;" href="##"> ${buy.buy_id} </a>
 					</td>
-					<td>
-						<img width="80px" src="/images_yhmall/${buy.product_image}" >
+				</c:if>
+					<td height="80px" width="70px">
+						<div style="margin-left: 10px; border: 1px solid #eee; display: inline-block;">
+							<img width="60px" src="/images_yhmall/${buy.product_image}" >
+						</div>
 					</td>
 					<td>
 						<a href="/productContent?product_id=${buy.product_id}"><strong>${buy.product_name}</strong></a>
@@ -211,9 +220,65 @@ document.addEventListener("DOMContentLoaded", function(){
 							<span style="font-size: 0.9em; color:#888;">${buy.buy_amount}개</span>&ensp;
 						</p>
 					</td>
-					
+				<c:if test="${exbuy_id ne buy.buy_id}">
+					<td style="text-align: center; border-left: 1px solid #eee;" rowspan="${buy.buy_bundles}">
+						<c:choose>
+							<c:when test="${buy.review_com eq 'true'}">
+								<form name="review_form" action="" method="post">
+									<input type="hidden" name="product_id" value="${buy.product_id}">
+									<input type="hidden" name="id" value="${member.id}">
+								</form>
+								<input type="button" value="리뷰 쓰기">
+							</c:when>
+							<c:otherwise>
+								<input type="button" value="구매 확정">
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</c:if>
 				</tr>
+				<c:set var="exbuy_id" value="${buy.buy_id}"></c:set>
 				</c:forEach>
+			</table>
+		</div>
+		
+		<div class="review_list">
+			<h2 class="menu_title">내가쓴 리뷰</h2>
+			<table id="review_table" >
+				<tr>
+					<th width="10%">평점</th>
+					<th width="50%">제목</th>
+					<th width="10%">작성자</th>
+					<th width="15%">작성일</th>
+					<th width="10%">조회수</th>
+				</tr>
+				<c:choose>
+					<c:when test="${review_list.size() eq 0}">
+						<tr>
+							<td colspan="5" style="text-align:center;">등록된 글이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="review" items="${review_list}">
+							<tr>
+								<td style="text-align:center; margin-right: 20px">
+									<img src="../resources/icons/Star${review.re_rate}.png" width="80px">
+								</td>
+								<td>
+									<a id="review_title" style="cursor:pointer;">${review.re_title}</a>
+								</td>
+								<td style="text-align: center">${review.id}</td>
+								<td style="text-align: center">${review.re_regDate}</td>
+								<td style="text-align: center">${review.readCount}</td>
+							</tr>
+							<tr class="hidden_review">
+								<td colspan="5">
+									<p>${review.re_content}</p>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</table>
 		</div>
 	</div>

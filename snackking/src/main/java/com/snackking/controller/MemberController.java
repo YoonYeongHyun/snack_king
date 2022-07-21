@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.snackking.model.BuyDTO;
 import com.snackking.model.MemberDTO;
+import com.snackking.model.ReviewDTO;
 import com.snackking.service.MemberService;
 
 import lombok.extern.log4j.Log4j2;
@@ -111,17 +112,24 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
-	public String myPageGET(HttpServletRequest request, Model model, MemberDTO member) {
+	public String myPageGET(HttpServletRequest request, Model model, MemberDTO member, ReviewDTO review) {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("memberId");
 		log.info(id + "님 마이 페이지 진입");
-		member = memberService.getMemberInfo(id);
-		List<BuyDTO> buy_list = memberService.getBuyInfo_mypageMain(id);
+		member.setId(id);
+		review.setId(id);
+		review.setDateType("1weeks");
+		member = memberService.getMemberInfo(member);
+		
+		List<BuyDTO> buy_list = memberService.getBuyInfo_mypageMain(member);
+		List<ReviewDTO> review_list = memberService.getReviewList(review);
 		log.info(member);
 		log.info(buy_list);
+		log.info(review_list);
 		
 		model.addAttribute("member", member);
 		model.addAttribute("buy_list", buy_list);
+		model.addAttribute("review_list", review_list);
 		return "/member/myPage";
 	}
 	
@@ -150,12 +158,5 @@ public class MemberController {
 		}
 		return "잘못된 접근입니다.";
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 }

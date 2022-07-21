@@ -141,6 +141,7 @@ public class ProductServiceImpl implements ProductService{
 			buy.setProduct_image(product.getProduct_image());
 			buy.setProduct_id(product.getProduct_id());
 			buy.setBuy_amount(buy_amount);
+			buy.setBuy_bundles(product_list.size());
 			buy.setBuy_price(buy_amount * product_price); 
 			buy.setProduct_qty(product.getProduct_qty());
 			productMapper.insertOrder(buy);

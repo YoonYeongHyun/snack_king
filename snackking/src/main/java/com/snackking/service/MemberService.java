@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.snackking.model.BuyDTO;
 import com.snackking.model.MemberDTO;
+import com.snackking.model.ReviewDTO;
 
 public interface MemberService {
 
@@ -13,10 +14,11 @@ public interface MemberService {
 	public int memberLogin_id(MemberDTO member);
 	public int memberLogin_id_pwd(MemberDTO member);
     
-	public MemberDTO getMemberInfo(String id);
-	public List<BuyDTO> getBuyInfo_mypageMain(String id);
+	public MemberDTO getMemberInfo(MemberDTO member);
+	public List<BuyDTO> getBuyInfo_mypageMain(MemberDTO member);
 
 	//회원정보 수정 관련
 	public int confirmPassword(MemberDTO member);
 	public void updateMemberInfo(MemberDTO member);
+	public List<ReviewDTO> getReviewList(ReviewDTO review);
 }
