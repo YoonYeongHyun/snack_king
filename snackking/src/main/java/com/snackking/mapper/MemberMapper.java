@@ -20,6 +20,8 @@ public interface MemberMapper {
 	public int confirmPassword(MemberDTO member);
 	public void updateMemberInfo(MemberDTO member);
 	
+	public void buyConfirm(BuyDTO buy);
 	public List<ReviewDTO> getReviewList(ReviewDTO review);
+	
 	
 }

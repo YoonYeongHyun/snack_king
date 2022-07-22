@@ -16,6 +16,7 @@ public class BuyDTO {
 	private int buy_price;
 	private Timestamp buy_date;
 	private String buy_info;
+	private String buy_com;
 	private String buyer;
 	private String buyer_tel;
 	private String buyer_addr;

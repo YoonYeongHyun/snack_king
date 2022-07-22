@@ -11,6 +11,17 @@
 </head>
 <style>
 	#container{width:1000px; height: auto; margin: 0 auto;}
+	
+	.box_enabled{display: inline-block; position:fixed; z-index:999; background: white; width: 384px; height: 60%; margin-left:760px; margin-top:-100px; border: 2px solid black}
+	.box_disabled{display: none;}
+	#review_box_top{width: 100%; height: 46px; text-align: right; font-size: 2em; border-bottom: 1px solid black; padding: 5px; box-sizing: border-box; margin-bottom: 20px;}
+	#review_box_close {cursor: pointer;}
+	#review_form_section{padding: 10px}
+	#review_form_section h4{text-align: center; margin: 20px 0 10px 0; }
+	#re_title{display: inline-block; width: 350px; padding:6px; font-size: 18px; }
+	#re_content{display: inline-block; width: 350px; padding:6px; font-size: 18px; }
+	#review_rate{text-align: center; margin-top:20px }
+	
 	.menu_title{font-weight: bold; border-bottom: 2px solid black; margin: 0; padding: 20px 0;}
 	.member_info{width: 100%; height: auto;}
 	table{width: 100%;  border-collapse: collapse}
@@ -109,7 +120,58 @@ document.addEventListener("DOMContentLoaded", function(){
 		    }
 		})
 	}
+
+	let buy_confirm_button = document.querySelectorAll('.buy_confirm_button');
+	buy_confirm_button.forEach(element => element.addEventListener("click", function(e){
+
+		let buy_id = e.target.nextElementSibling.value;
+		let id = '${member.id}';
+		if(confirm('해당 상품을 구매 확정 하시겠습니까??')){
+			$.ajax({
+				type:'post',
+				async:false,
+				url:'/member/buyConfirm',
+				dataType:'text',
+				data:{id:id, buy_id:buy_id},
+				success:function(data){
+					alert(data);
+					console.log(data)
+					location.reload();
+				},
+				error:function (data) {
+					alert("오류가 발생하였습니다.")
+			    }
+			});
+		}
+	}));
 	
+	let review_button = document.querySelectorAll('.review_button');
+	review_button.forEach(element => element.addEventListener("click", function(e){
+		
+		on_off_review_box();
+		
+		let review_image = document.querySelector('#review_image')
+		let review_product_id = document.querySelector('#review_product_id')
+		let review_buy_id = document.querySelector('#review_buy_id')
+		
+		review_image.src = e.target.nextElementSibling.value;
+		review_product_id.value = e.target.nextElementSibling.nextElementSibling.value;
+		review_buy_id.value = e.target.nextElementSibling.nextElementSibling.nextElementSibling.value;
+	}));
+	
+	function on_off_review_box() {
+		let review_box = document.querySelector('#review_box')
+		
+		if(review_box.className == 'box_disabled'){
+			review_box.className = "box_enabled";
+		}else{
+			review_box.className = "box_disabled";
+		}
+	}
+	
+
+	let star = document.querySelectorAll('.star');
+	review_button.forEach(element => element.addEventListener("", function(e){
 })
 
 </script>
@@ -122,9 +184,35 @@ document.addEventListener("DOMContentLoaded", function(){
 		<jsp:param name="memberId" value="${memberId}"/>
 </jsp:include>
 <body>
+	<div class="box_disabled" id="review_box">	
+		<div id="review_box_top">
+			<img src="../resources/icons/X.png" width="32px" height="32px" id="review_box_close">
+		</div>
+		<div id="review_form_section">
+			<img src="#" id="review_image" width="100px">
+			<div id="review_rate">
+				<img src="../resources/icons/nostar.png" width="32px" class="non_active star">
+				<img src="../resources/icons/nostar.png" width="32px" class="non_active star">
+				<img src="../resources/icons/nostar.png" width="32px" class="non_active star">
+				<img src="../resources/icons/nostar.png" width="32px" class="non_active star">
+				<img src="../resources/icons/nostar.png" width="32px" class="non_active star">
+				<input type="hidden">
+			</div>
+			<form name="review_form" action="" method="post">
+				<input type="hidden" name="id" id="review_id" value="${member.id}">
+				<input type="hidden" name="product_id" id="review_product_id">
+				<input type="hidden" name="buy_id" id="review_buy_id">
+				<h4>상품후기의 제목을 적어주세요</h4>
+				<input type="text" name="re_title" id="re_title"> <br>
+				<h4>상품후기의 내용을 적어주세요</h4>
+				<textarea rows="4" cols="20" name="re_content" id="re_content"></textarea>
+			</form>
+		</div>
+	</div>
 	<div id="container">
-		<p><strong style="font-size: 2em;">${member.id}</strong>님, 안녕하세요!</p>
 		
+		
+		<p><strong style="font-size: 2em;">${member.id}</strong>님, 안녕하세요!</p>
 		<div class="member_info">
 			<h2 class="menu_title">회원정보</h2>
 			<table class="member_table">
@@ -220,18 +308,33 @@ document.addEventListener("DOMContentLoaded", function(){
 							<span style="font-size: 0.9em; color:#888;">${buy.buy_amount}개</span>&ensp;
 						</p>
 					</td>
-				<c:if test="${exbuy_id ne buy.buy_id}">
+				<c:if test="${exbuy_id ne buy.buy_id || buy.buy_com eq 'true'}">
+				<c:choose>
+				<c:when test="${buy.buy_com eq 'false'}">
 					<td style="text-align: center; border-left: 1px solid #eee;" rowspan="${buy.buy_bundles}">
+				</c:when>
+				<c:otherwise>
+					<td style="text-align: center; border-left: 1px solid #eee;">
+				</c:otherwise>
+				</c:choose>
 						<c:choose>
-							<c:when test="${buy.review_com eq 'true'}">
+							<c:when test="${buy.buy_com eq 'false'}">
+								<input type="button" value="구매 확정" class="buy_confirm_button">
+								<input type="hidden" name="product_id" value="${buy.buy_id}">
+							</c:when>
+							<c:when test="${buy.buy_com eq 'true' && buy.review_com eq 'false'}">
 								<form name="review_form" action="" method="post">
 									<input type="hidden" name="product_id" value="${buy.product_id}">
-									<input type="hidden" name="id" value="${member.id}">
+									<input type="hidden" name="id" value="${buy.id}">
+									<input type="hidden" name="buy_id" value="${buy.buy_id}">
 								</form>
-								<input type="button" value="리뷰 쓰기">
+								<input type="button" value="리뷰 쓰기" class="review_button">
+								<input type="hidden" value="/images_yhmall/${buy.product_image}">
+								<input type="hidden" value="${buy.product_id}">
+								<input type="hidden" value="${buy.buy_id}">
 							</c:when>
 							<c:otherwise>
-								<input type="button" value="구매 확정">
+								<strong>구매/리뷰 완료</strong>
 							</c:otherwise>
 						</c:choose>
 					</td>

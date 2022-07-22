@@ -11,8 +11,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <link rel="stylesheet" href="resources/css/main.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 <jsp:include page="common/header.jsp">

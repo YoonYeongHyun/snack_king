@@ -23,7 +23,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int idCheck(String id) throws Exception{
-
 		return memberMapper.idCheck(id);
 	}
 
@@ -39,7 +38,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDTO getMemberInfo(MemberDTO member) {
-
 		return memberMapper.getMemberInfo(member);
 	}
 	
@@ -50,7 +48,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int confirmPassword(MemberDTO member) {
-
 		return memberMapper.confirmPassword(member);
 	}
 
@@ -60,9 +57,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public void buyConfirm(BuyDTO buy) {
+		memberMapper.buyConfirm(buy);
+	}
+	
+	@Override
 	public List<ReviewDTO> getReviewList(ReviewDTO review) {
-		
 		return memberMapper.getReviewList(review);
 	}
+
 
 }

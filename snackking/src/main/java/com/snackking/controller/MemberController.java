@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.core.impl.MementoMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -132,7 +133,7 @@ public class MemberController {
 		model.addAttribute("review_list", review_list);
 		return "/member/myPage";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/memberUpdate", produces = "application/text; charset=UTF-8")
 	public String memberUpdate(HttpServletRequest request, MemberDTO member) {
@@ -157,6 +158,17 @@ public class MemberController {
 			return "연락처가 변경되었습니다.";
 		}
 		return "잘못된 접근입니다.";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/buyConfirm", produces = "application/text; charset=UTF-8")
+	public String buyConfirm(HttpServletRequest request, BuyDTO buy) {
+		log.info("상품 구매 확정");
+		log.info(buy);
+		
+		memberService.buyConfirm(buy);
+		
+		return "해당 상품이 구매 확정 되었습니다.";
 	}
 	
 }

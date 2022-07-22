@@ -53,6 +53,13 @@
 			and id = #{id};
   		</update>
   		
+  		<update id="buyConfirm">
+  			update buy
+			set buy_com = 'true' 	
+  			where 1 = 1 
+			and id = #{id} and buy_id = #{buy_id};
+  		</update>
+  		
   		<select id="getReviewList" resultType="com.snackking.model.ReviewDTO">
   			select * from review where id = #{id} and
   			<if test='dateType.equals("1weeks")'>
